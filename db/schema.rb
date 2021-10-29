@@ -10,20 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_29_114253) do
+ActiveRecord::Schema.define(version: 2021_10_29_123602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "portfolio_tables", force: :cascade do |t|
+  create_table "portfolios", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "stock_id", null: false
+    t.string "stock"
     t.decimal "shares"
     t.decimal "total_cost"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["stock_id"], name: "index_portfolio_tables_on_stock_id"
-    t.index ["user_id"], name: "index_portfolio_tables_on_user_id"
+    t.index ["user_id"], name: "index_portfolios_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -32,22 +31,14 @@ ActiveRecord::Schema.define(version: 2021_10_29_114253) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "stocks", force: :cascade do |t|
-    t.string "name"
-    t.string "ticker"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "transactions", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "stock_id", null: false
+    t.string "stock"
     t.string "action"
     t.decimal "amount"
     t.decimal "total_price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["stock_id"], name: "index_transactions_on_stock_id"
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
@@ -57,6 +48,7 @@ ActiveRecord::Schema.define(version: 2021_10_29_114253) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.decimal "balance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -70,8 +62,6 @@ ActiveRecord::Schema.define(version: 2021_10_29_114253) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
-  add_foreign_key "portfolio_tables", "stocks"
-  add_foreign_key "portfolio_tables", "users"
-  add_foreign_key "transactions", "stocks"
+  add_foreign_key "portfolios", "users"
   add_foreign_key "transactions", "users"
 end
