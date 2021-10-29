@@ -6,5 +6,5 @@ class User < ApplicationRecord
   
   has_and_belongs_to_many :roles
   has_many :transactions
-  has_many :stocks, through: :transactions
+  has_many :portfolios
 end
