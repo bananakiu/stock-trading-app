@@ -9,3 +9,11 @@ roles = Role.create([
     {name: "member"},
     {name: "admin"}
 ])
+
+# TODO: encrypt
+admin = User.create(
+    email: "admin@admin.com",
+    password: "password"
+)
+
+admin.roles << Role.find_by_name("admin")
