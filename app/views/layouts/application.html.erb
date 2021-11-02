@@ -11,6 +11,8 @@
   </head>
 
   <body>
+    <%= button_to "logout", destroy_user_session_path, method: :delete  %>
+
     <% if notice %>
       <p class="alert alert-success"><%= notice %></p>
     <% end %>
