@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+
   devise_for :users, controllers: { registrations: 'users/registrations' }
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  namespace :admin do
+    resources :users, except: :create
+    post 'create_user' => 'users#create', as: :create_user
+    patch 'update_user/:id', to: 'articles#update', as: :update_user
+    delete 'delete_user/:id' => 'users#destory', as: :delete_user
+    # post 'savenew', to: 'users#savenew'
+  end
 end
