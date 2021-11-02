@@ -12,6 +12,11 @@ class User < ApplicationRecord
   # set default role (https://stackoverflow.com/questions/17207614/how-to-populate-data-in-roles-users-table-using-devise-in-rails)
   before_create :set_default_role
   
+  protected
+  def confirmation_required?
+    false
+  end
+
   private
   def set_default_role
     # Add the default role if no roles is set
