@@ -3,7 +3,7 @@
 Instructions for iex-API 
 - Add "gem 'iex-ruby-client' " to Gemfile
 - Run bundle install 
-- Add "gem 'dotenv-rails', groups: [:development, :test]" to Gemfile as well
+- Add "gem 'dotenv-rails', groups: [:development, :test]" to Gemfile as well from https://github.com/bkeepers/dotenv
 - Run bundle
 - Create an account on IEX Cloud to get a publishable and secret token from the IEX Cloud 
 - Create a .env file to store both tokens
