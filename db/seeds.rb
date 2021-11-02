@@ -13,7 +13,9 @@ roles = Role.create([
 # TODO: encrypt
 admin = User.create(
     email: "admin@admin.com",
-    password: "password"
+    password: "password",
+    approved: true # admin is automatically approved
 )
 
+admin.skip_confirmation! # no need to confirm admins
 admin.roles << Role.find_by_name("admin")
