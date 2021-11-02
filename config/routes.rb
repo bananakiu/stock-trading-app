@@ -7,6 +7,5 @@ Rails.application.routes.draw do
     post 'create_user' => 'users#create', as: :create_user
     patch 'update_user/:id', to: 'articles#update', as: :update_user
     delete 'delete_user/:id' => 'users#destory', as: :delete_user
-    # post 'savenew', to: 'users#savenew'
   end
 end

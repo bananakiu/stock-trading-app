@@ -60,18 +60,7 @@ class Admin::UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  # # allows admin to add/modify users (https://github.com/heartcombo/devise/wiki/How-to-manage-users-with-a-standard-Rails-controller)
-  # def savenew
-  #   sql = "insert into users (email, created_at, updated_at) values( 
-  #     #{ActiveRecord::Base.connection.quote(user_params[:email])},
-  #     now(),
-  #     now())
-  #     "
-  #   ActiveRecord::Base.connection.execute(sql)
-  #   redirect_to action: 'index'
-  # end
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
