@@ -1,0 +1,16 @@
+<h1>This is the Welcome#index page</h1>
+<p>All the useful navigation links are here for testing.</p>
+
+<% if user_signed_in? %>
+    <% if !current_user.roles.find_by(name: "admin").nil? %>
+        <p>You're an admin!</p>
+        <%= link_to "Manager Users", admin_users_path, class: "block" %>
+    <% else %>
+        <p>You're not an admin!</p>
+    <% end %>
+    <%= link_to "Edit Profile", edit_user_registration_path, class: "block" %>
+<% else %>
+    <p>You're not signed in</p>
+    <%= link_to "Sign In", new_user_session_path, class: "block" %>
+    <%= link_to "Sign Up", new_user_registration_path, class: "block" %>
+<% end %>
