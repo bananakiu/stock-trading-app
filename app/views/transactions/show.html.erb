@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+<ul>
+    <li><%= @transaction.action %></li>
+    <li><%= @transaction.stock %></li>
+    <li><%= @transaction.amount %></li>
+    <li><%= @transaction.total_price %></li>
+</ul>
+
+<%= link_to 'Back', transactions_path %>

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :transactions
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
   namespace :admin do
