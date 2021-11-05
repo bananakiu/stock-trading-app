@@ -1,5 +1,6 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[ show edit update destroy ]
+  before_action :get_api, except: %i[ create update destroy ]
 
   # GET /transactions or /transactions.json
   def index
@@ -65,5 +66,9 @@ class TransactionsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def transaction_params
       params.require(:transaction).permit(:user_id, :action, :stock, :amount, :total_price)
+    end
+
+    def get_api
+      @client = IEX::Api::Client.new # credentials setup in config/intializers/iex_client.rb
     end
 end
