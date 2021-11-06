@@ -1,3 +1,6 @@
+<% content_for :head do %>
+  <%# <%= javascript_include_tag "transactions_new.js" %> %>
+<% end %>
 <%= form_with(model: transaction) do |form| %>
   <% if transaction.errors.any? %>
     <div id="error_explanation">
@@ -39,13 +42,16 @@
 
   <%# PRICE PER SHARE %>
   <%# TODO: rename to price_per_share for readability %>
-  <%# make field uneditable -- fixed to current price based on API %>
   <div>
     <%= form.label :total_price, "Price per share" %>
-    <%= form.number_field :total_price, step: :any,  placeholder: "Price per share" %>
+    <%= form.number_field :total_price,
+      step: :any,
+      readonly: true,
+      placeholder: "Price per share"
+      %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit data: { disable_with: "Sending..." } %>
   </div>
 <% end %>

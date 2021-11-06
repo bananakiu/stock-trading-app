@@ -1,6 +1,7 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[ show edit update destroy ]
   before_action :get_api, except: %i[ create update destroy ]
+  respond_to :js, :json, :html
 
   # GET /transactions or /transactions.json
   def index
@@ -14,6 +15,11 @@ class TransactionsController < ApplicationController
   # GET /transactions/new
   def new
     @transaction = Transaction.new
+
+    respond_to do |format|
+      format.html { render 'new' }
+      format.js
+    end
   end
 
   # GET /transactions/1/edit

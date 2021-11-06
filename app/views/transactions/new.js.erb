@@ -1,0 +1,11 @@
+window.addEventListener("load", () => {
+    const price_field = document.querySelector("#transaction_total_price");
+    const stock_field = document.querySelector("#transaction_stock")
+    
+    stock_field.addEventListener("change", (event) => {
+        alert("hello");
+        event.preventDefault();
+        <%# price_field.val("<%= @client.quote("TSLA").latest_price>%") %>
+        price_field.val("100")
+    });
+});
