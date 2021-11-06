@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-
+  root to: 'welcome#index'
+  
   resources :transactions
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { registrations: 'users/registrations', confirmations: 'confirmations' }
 
   namespace :admin do
     resources :users, except: :create
