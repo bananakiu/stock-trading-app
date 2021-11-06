@@ -31,18 +31,16 @@
   </div>
 
   <%# NUMBER OF SHARES %>
-  <%# rename to "shares" for readability %>
   <div>
-    <%= form.label :amount, "Shares" %>
-    <%= form.number_field :amount, placeholder: "Number of shares" %>
+    <%= form.label :shares, "Shares" %>
+    <%= form.number_field :shares, placeholder: "Number of shares" %>
   </div>
 
   <%# PRICE PER SHARE %>
-  <%# TODO: rename to price_per_share for readability %>
-  <%# make field uneditable -- fixed to current price based on API %>
+  <%# to make read-only, readonly: true %>
   <div>
-    <%= form.label :total_price, "Price per share" %>
-    <%= form.number_field :total_price, step: :any,  placeholder: "Price per share" %>
+    <%= form.label :price_per_share, "Price per share" %>
+    <%= form.number_field :price_per_share, step: :any, placeholder: "Price per share" %>
   </div>
 
   <div class="actions">
