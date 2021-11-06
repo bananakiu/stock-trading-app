@@ -5,6 +5,7 @@
     <% if !current_user.roles.find_by(name: "admin").nil? %>
         <p>You're an admin!</p>
         <%= link_to "Manager Users", admin_users_path, class: "block" %>
+        <%= link_to "View All User Transactions", admin_all_transactions_path, class: "block" %>
     <% else %>
         <p>You're not an admin!</p>
     <% end %>
