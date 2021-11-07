@@ -24,9 +24,31 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(transaction_params)
 
+    # create portfolio entry if entry does not exist 
+    current_user.portfolios.create(
+      stock: transaction_params[:stock],
+      shares: 0,
+      total_cost: 0
+    ) if current_user.portfolios.find_by(stock: transaction_params[:stock]).nil? # if stock is not yet in portfolio
+    
+    # update portfolio values based on transaction made
+    portfolio_entry = current_user.portfolios.find_by(stock: transaction_params[:stock])
+    if transaction_params[:action] == "Buy"
+      # buy
+      portfolio_entry.total_cost += transaction_params[:shares].to_d*transaction_params[:price_per_share].to_d
+      portfolio_entry.shares += transaction_params[:shares].to_d
+      portfolio_entry.save
+    else
+      # sell
+      portfolio_entry.total_cost *= (1-(transaction_params[:shares].to_d / portfolio_entry.shares)) # TODO: re-check logic
+      portfolio_entry.shares -= transaction_params[:shares].to_d
+      portfolio_entry.save
+    end
+    # TODO: OPERATIONS AREN'T WORKING!
+
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to @transaction, notice: "Transaction was successfully created." }
+        format.html { redirect_to @transaction, notice: "Transaction was successfully updated." }
         format.json { render :show, status: :created, location: @transaction }
       else
         format.html { render :new, status: :unprocessable_entity }

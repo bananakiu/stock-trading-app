@@ -4,6 +4,10 @@ class WelcomeController < ApplicationController
   def index
   end
 
+  def portfolio
+    @portfolio = current_user.portfolios
+  end
+
   def all_transactions
     @all_transactions = Transaction.all
   end
