@@ -9,6 +9,7 @@
     <% else %>
         <p>You're not an admin!</p>
     <% end %>
+    <%= link_to "View Your Portfolio", portfolio_path, class: "block" %>
     <%= link_to "View Your Transactions", transactions_path, class: "block" %>
     <%= link_to "Make Transactions", new_transaction_path, class: "block" %>
     <%= link_to "Edit Profile", edit_user_registration_path, class: "block" %>
