@@ -1,0 +1,49 @@
+<%= form_with(model: transaction) do |form| %>
+  <% if transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+      <ul>
+        <% transaction.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <%# USER_ID (HIDDEN) %>
+  <div>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+  </div>
+
+  <%# ACTION %>
+  <div>
+    <%= form.label :action, "Action" %>
+    <%= form.select :action, ["Buy", "Sell"] %>
+  </div>
+
+  <%# STOCK %>
+  <%# should be some datalist -- look for gem like react-select %>
+  <%# :stock %>
+  <div>
+    <%= form.label :stock, "Stock" %>
+    <%= form.text_field :stock, placeholder: "Ticker" %>
+  </div>
+
+  <%# NUMBER OF SHARES %>
+  <div>
+    <%= form.label :shares, "Shares" %>
+    <%= form.number_field :shares, placeholder: "Number of shares" %>
+  </div>
+
+  <%# PRICE PER SHARE %>
+  <%# to make read-only, readonly: true %>
+  <div>
+    <%= form.label :price_per_share, "Price per share" %>
+    <%= form.number_field :price_per_share, step: :any, placeholder: "Price per share" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

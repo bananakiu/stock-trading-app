@@ -76,4 +76,8 @@ Rails.application.configure do
 
   # default url
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # # action mailer essentials
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.delivery_method = :smtp
 end
