@@ -10,7 +10,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="bg-gray-100 h-screen">
     <header class="sticky top-0 z-50">
       <%# navbar %>
       <div class="
@@ -154,13 +154,16 @@
       </div>
     </header>
 
-    <main>
+    <main class="py-4 px-8">
+      <%# notices %>
       <% if notice %>
         <p class="alert alert-success"><%= notice %></p>
       <% end %>
       <% if alert %>
         <p class="alert alert-danger"><%= alert %></p>
       <% end %>
+
+      <%# main %>
       <%= yield %>
     </main>
   </body>
