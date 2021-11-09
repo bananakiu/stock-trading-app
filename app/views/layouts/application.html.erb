@@ -157,12 +157,11 @@
     <main class="py-4 px-8">
       <%# notices %>
       <% if notice %>
-        <p class="alert alert-success"><%= notice %></p>
+        <%= render "/shared/notice_notice" %>
       <% end %>
       <% if alert %>
-        <p class="alert alert-danger"><%= alert %></p>
+        <%= render "/shared/notice_alert" %>
       <% end %>
-
       <%# main %>
       <%= yield %>
     </main>
