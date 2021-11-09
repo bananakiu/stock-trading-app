@@ -11,14 +11,157 @@
   </head>
 
   <body>
-    <%= button_to "logout", destroy_user_session_path, method: :delete  %>
+    <header class="sticky top-0 z-50">
+      <%# navbar %>
+      <div class="
+      flex justify-between items-center
+      h-16 px-8
+      bg-gray-700 
+      text-xl text-white
+      ">
+        <%# left nav-items %>
+        <ul class="flex items-center h-full">
+          <%# logo %>
+          <li class="cursor-pointer select-none mr-6">
+            <a href="/" class="text-3xl">
+              AppNameHere
+            </a>
+          </li>
+          <li class="h-full flex items-center justify-center">
+            <a href="/" class="
+            flex items-center justify-center
+            h-full px-4 
+            hover:bg-gray-600 transition-all duration-200
+            ">
+              Home
+            </a>
+          </li>
+          <%# if admin %>
+          <% if !current_user&.roles&.find_by(name: "admin").nil? %>
+            <li class="h-full flex items-center justify-center">
+              <a href=<%= admin_users_path %> class="
+              flex items-center justify-center
+              h-full px-4 
+              hover:bg-gray-600 transition-all duration-200
+              ">
+                Manage Users
+              </a>
+            </li>
+            <li class="h-full flex items-center justify-center">
+              <a href="" class="
+              flex items-center justify-center
+              h-full px-4 
+              hover:bg-gray-600 transition-all duration-200
+              ">
+                Approvals
+              </a>
+            </li>
+            <li class="h-full flex items-center justify-center">
+              <a href=<%= admin_all_transactions_path %> class="
+              flex items-center justify-center
+              h-full px-4 
+              hover:bg-gray-600 transition-all duration-200
+              ">
+                Transactions
+              </a>
+            </li>
+          <%# if non-admin %>
+          <% else %>
+            <li class="h-full flex items-center justify-center">
+              <a href="" class="
+              flex items-center justify-center
+              h-full px-4 
+              hover:bg-gray-600 transition-all duration-200
+              ">
+                Stocks
+              </a>
+            </li>
+            <li class="h-full flex items-center justify-center">
+              <a href=<%= portfolio_path %> class="
+              flex items-center justify-center
+              h-full px-4 
+              hover:bg-gray-600 transition-all duration-200
+              ">
+                Portfolio
+              </a>
+            </li>
+            <li class="h-full flex items-center justify-center">
+              <a href=<%= transactions_path %> class="
+              flex items-center justify-center
+              h-full px-4 
+              hover:bg-gray-600 transition-all duration-200
+              ">
+                Transactions  
+              </a>
+            </li>
+          <% end %>
+        </ul>
 
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
-    <%= yield %>
+        <%# right nav-items %>
+        <ul class="flex items-center h-full">
+          <% if user_signed_in? %>
+            <li class="h-full flex items-center justify-center">
+              <div class= "px-4 py-5 h-full">
+                Welcome, <%= current_user&.roles&.find_by(name: "admin").nil? ? current_user.email : "Admin" %>!
+              </div>
+            </li>
+            <li class="h-full flex items-center justify-center">
+              <a href=<%= edit_user_registration_path %> class="
+              flex items-center justify-center
+              h-full px-4 
+              hover:bg-gray-600 transition-all duration-200
+              ">
+                Edit profile
+              </a>
+            </li>
+            <li class="h-full flex items-center justify-center">
+              <%=
+                link_to "Logout",
+                destroy_user_session_path,
+                method: :delete,
+                class: "
+                flex items-center justify-center
+                h-full px-4 
+                hover:bg-red-700 transition-all duration-200
+                "
+              %>
+            </li>
+          <% else %>
+            <li class="h-full flex items-center justify-center">
+              <%=
+                link_to raw("<i class=\"fas fa-user-plus mr-3\"></i> Sign up"),
+                new_user_registration_path,
+                class: "
+                flex items-center justify-center
+                h-full px-4 
+                hover:bg-green-700 transition-all duration-200
+                "
+              %>
+            </li>
+            <li class="h-full flex items-center justify-center">
+              <%=
+                link_to raw("<i class=\"fas fa-sign-in-alt mr-3\"></i> Login"),
+                new_user_session_path,
+                class: "
+                flex items-center justify-center
+                h-full px-4 
+                hover:bg-green-700 transition-all duration-200
+                "
+              %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </header>
+
+    <main>
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+      <%= yield %>
+    </main>
   </body>
 </html>
