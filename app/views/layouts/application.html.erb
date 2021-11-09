@@ -10,7 +10,10 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="bg-gray-100 h-screen">
+  <body class="
+  flex flex-col
+  bg-gray-100 h-screen
+  ">
     <header class="sticky top-0 z-50">
       <%# navbar %>
       <div class="
@@ -154,7 +157,11 @@
       </div>
     </header>
 
-    <main class="py-4 px-8">
+    <main class="
+    flex flex-col
+    flex-grow
+    px-8 py-4
+    ">
       <%# notices %>
       <% if notice %>
         <%= render "/shared/notice_notice" %>
