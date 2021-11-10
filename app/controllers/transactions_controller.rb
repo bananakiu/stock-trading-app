@@ -1,6 +1,8 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[ show edit update destroy ]
   before_action :get_api, except: %i[ create update destroy ]
+  before_action :restrict_admin
+
 
   # GET /transactions or /transactions.json
   def index
@@ -44,7 +46,6 @@ class TransactionsController < ApplicationController
       portfolio_entry.shares -= transaction_params[:shares].to_d
       portfolio_entry.save
     end
-    # TODO: OPERATIONS AREN'T WORKING!
 
     respond_to do |format|
       if @transaction.save
@@ -95,5 +96,10 @@ class TransactionsController < ApplicationController
 
     def get_api
       @client = IEX::Api::Client.new # credentials setup in config/intializers/iex_client.rb
+    end
+
+    def restrict_admin
+      return if current_user.roles.find_by(name: "admin").nil?
+      redirect_to "/", alert: 'Admins are not meant to trade.' # set to root path in the future
     end
 end
