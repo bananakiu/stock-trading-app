@@ -16,7 +16,8 @@ class WelcomeController < ApplicationController
   private
   def authorize_admin
     return unless current_user.roles.find_by(name: "admin").nil?
-    redirect_to "/", alert: 'Only admins are authorized to access that page.' # set to root path in the future
+    flash[:alert] = 'Only admins are authorized to access that page.' 
+    redirect_to "/" # set to root path in the future
   end
 
   def restrict_admin
