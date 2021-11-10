@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   resources :transactions
   get 'portfolio' => 'welcome#portfolio'
 
-  get 'stocks', to: 'stocks#index'
-  get 'stocks/:ticker', to: 'stocks#show'
+  get 'stocks/search'
+  post 'stocks/search' => 'stocks#create'
+  get 'stocks/:ticker', to: 'stocks#show', as: 'stocks_show'
 
   namespace :admin do
     resources :users, except: :create

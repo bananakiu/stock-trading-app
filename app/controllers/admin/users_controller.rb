@@ -29,8 +29,9 @@ class Admin::UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         UserMailer.with(user: @user).welcome_email.deliver_now
-
-        format.html { redirect_to admin_user_url(@user), notice: "User was successfully created." }
+        
+        flash[:notice] = "User was successfully created."
+        format.html { redirect_to admin_user_url(@user) }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -45,7 +46,8 @@ class Admin::UsersController < ApplicationController
     
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to admin_user_url(@user), notice: "User was successfully updated." }
+        flash[:notice] = "User was successfully updated."
+        format.html { redirect_to admin_user_url(@user) }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,7 +60,8 @@ class Admin::UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to admin_users_url, notice: "User was successfully destroyed." }
+      flash[:alert] = "User was successfully destroyed."
+      format.html { redirect_to admin_users_url }
       format.json { head :no_content }
     end
   end
@@ -84,6 +87,7 @@ class Admin::UsersController < ApplicationController
 
     def authorize_admin
       return unless current_user.roles.find_by(name: "admin").nil?
-      redirect_to "/", alert: 'Only admins are authorized to access that page.' # set to root path in the future
+      flash[:alert] = 'Only admins are authorized to access that page.'
+      redirect_to "/"  # set to root path in the future
     end
 end

@@ -1,0 +1,7 @@
+<h1>Search Stock Ticker<h1>
+
+<%= form_with method: :post, url: stocks_search_path, local: true do |f| %>
+  <%= f.text_field :ticker %>
+  <%= f.submit "Search" %>
+
+<% end %>

@@ -1,6 +1,8 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[ show edit update destroy ]
   before_action :get_api, except: %i[ create update destroy ]
+  before_action :restrict_admin
+
 
   # GET /transactions or /transactions.json
   def index
@@ -44,11 +46,11 @@ class TransactionsController < ApplicationController
       portfolio_entry.shares -= transaction_params[:shares].to_d
       portfolio_entry.save
     end
-    # TODO: OPERATIONS AREN'T WORKING!
 
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to @transaction, notice: "Transaction was successfully updated." }
+        flash[:notice] = "Transaction was successfully updated."
+        format.html { redirect_to @transaction }
         format.json { render :show, status: :created, location: @transaction }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -61,7 +63,8 @@ class TransactionsController < ApplicationController
   def update
     respond_to do |format|
       if @transaction.update(transaction_params)
-        format.html { redirect_to @transaction, notice: "Transaction was successfully updated." }
+        flash[:notice] = "Transaction was successfully created."
+        format.html { redirect_to @transaction }
         format.json { render :show, status: :ok, location: @transaction }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -74,7 +77,8 @@ class TransactionsController < ApplicationController
   def destroy
     @transaction.destroy
     respond_to do |format|
-      format.html { redirect_to transactions_url, notice: "Transaction was successfully destroyed." }
+      flash[:alert] = "Transaction was successfully destroyed."
+      format.html { redirect_to transactions_url }
       format.json { head :no_content }
     end
   end
@@ -92,5 +96,10 @@ class TransactionsController < ApplicationController
 
     def get_api
       @client = IEX::Api::Client.new # credentials setup in config/intializers/iex_client.rb
+    end
+
+    def restrict_admin
+      return if current_user.roles.find_by(name: "admin").nil?
+      redirect_to "/", alert: 'Admins are not meant to trade.' # set to root path in the future
     end
 end
