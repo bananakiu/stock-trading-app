@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'welcome#index'
   
-  devise_for :users, controllers: { registrations: 'users/registrations', confirmations: 'confirmations' }
+  devise_for :users, controllers: { registrations: 'users/registrations' }
   resources :transactions
   get 'portfolio' => 'welcome#portfolio'
 
