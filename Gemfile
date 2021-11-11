@@ -57,3 +57,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # for user authentication
 gem 'devise'
+
+# iex API
+gem 'iex-ruby-client'

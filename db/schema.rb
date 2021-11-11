@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 2021_11_04_032002) do
     t.bigint "user_id", null: false
     t.string "stock"
     t.string "action"
-    t.decimal "amount"
-    t.decimal "total_price"
+    t.decimal "shares"
+    t.decimal "price_per_share"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_transactions_on_user_id"
