@@ -1,24 +1,75 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Portfolio</h1>
-<table>
-    <thead>
-        <tr>
-            <th colspan="3">Stock</th>
-            <th colspan="3">Shares</th>
-            <th colspan="3">Total Cost</th>
-            <th colspan="3"></th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <% @portfolio.each do |portfolio_stock| %>
-            <tr>
-                <td colspan="3"><%= portfolio_stock.stock %></td>
-                <td colspan="3"><%= portfolio_stock.shares %></td>
-                <td colspan="3"><%= portfolio_stock.total_cost %></td>
-                <td colspan="3"><%= link_to 'More details', portfolio_stock %></td>
+<div class="w-full h-full">
+    <h1 class="text-4xl mb-3">Portfolio</h1>
+    <table class="
+    w-full
+    ">
+        <thead>
+            <tr class="
+            h-10
+            font-semi-bold uppercase text-gray-700
+            bg-gray-200 text-left
+            ">
+                <th>
+                    <span class="ml-5">Stock</span>
+                </th>
+                <th>Market Price</th>
+                <th>Average Price</th>
+                <th>Shares</th>
+                <th>Market Value</th>
+                <th>P/L</th>
+                <th>P/L %</th>
+                <th>Actions</th>
             </tr>
-        <% end %>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <% @portfolio.each do |portfolio_stock| %>
+                <% mkt_price = @client.quote(portfolio_stock.stock).latest_price %>
+                <tr class="
+                <%= @toggle == "odd" ? "" : "bg-gray-200" %>
+                ">
+                    <% @toggle = (@toggle == "odd" ? "even" : "odd") %>
+                    <td class="
+                    flex items-center
+                    h-16
+                    px-2
+                    ">
+                        <%= image_tag @client.logo(portfolio_stock.stock).url, class: "h-4/5" %>
+                        <div class="ml-5">
+                            <div class="
+                            font-semibold
+                            ">
+                                <%= @client.company(portfolio_stock.stock).company_name %>
+                            </div>
+                            <div class="
+                            text-gray-600 text-xs
+                            ">
+                                <%= portfolio_stock.stock %>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <%= number_to_currency(mkt_price) %>
+                    </td>
+                    <td>
+                        <%= number_to_currency(portfolio_stock.average_price) %>
+                    </td>
+                    <td>
+                        <%= portfolio_stock.shares %>
+                    </td>
+                    <td>
+                        <%= number_to_currency(portfolio_stock.market_price_total(mkt_price)) %>
+                    </td>
+                    <td class="<%= portfolio_stock.pnl(mkt_price)>0 ? "text-green-500" : "text-red-500" %>">
+                        <%= number_to_currency(portfolio_stock.pnl(mkt_price)) %>
+                    </td>
+                    <td class="<%= portfolio_stock.pnl(mkt_price)>0 ? "text-green-500" : "text-red-500" %>">
+                        <%= number_to_percentage(portfolio_stock.pnl_perc(mkt_price) * 100, precision: 2) %>
+                    </td>
+                    <td>
+                        <%= link_to 'More details Icon', portfolio_stock %>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
