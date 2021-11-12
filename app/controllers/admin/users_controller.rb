@@ -24,12 +24,10 @@ class Admin::UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-    # TODO: don't send email notifications from admin interface
+    @user.approved = true # in admin controller, automatically approve users upon creation
 
     respond_to do |format|
-      if @user.save
-        UserMailer.with(user: @user).welcome_email.deliver_now
-        
+      if @user.save        
         flash[:notice] = "User was successfully created."
         format.html { redirect_to admin_user_url(@user) }
         format.json { render :show, status: :created, location: @user }
@@ -41,9 +39,7 @@ class Admin::UsersController < ApplicationController
   end
 
   # PATCH/PUT /users/1 or /users/1.json
-  def update
-    # TODO: don't send email notifications from admin interface
-    
+  def update    
     respond_to do |format|
       if @user.update(user_params)
         flash[:notice] = "User was successfully updated."
@@ -74,7 +70,7 @@ class Admin::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
+      params.require(:user).permit(:email, :password, :password_confirmation, :approved)
     end
 
     # remove the need for providing a password when an admin is updating a user

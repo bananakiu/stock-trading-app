@@ -12,4 +12,5 @@ Rails.application.routes.draw do
     delete 'delete_user/:id' => 'users#destory', as: :delete_user
   end
   get 'admin/all_transactions' => 'welcome#all_transactions'
+  get 'admin/approvals' => 'welcome#approvals'
 end

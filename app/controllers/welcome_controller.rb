@@ -13,6 +13,10 @@ class WelcomeController < ApplicationController
     @all_transactions = Transaction.all
   end
 
+  def approvals
+    @unapproved_users = User.where(approved: false)
+  end
+
   private
   def authorize_admin
     return unless current_user.roles.find_by(name: "admin").nil?
