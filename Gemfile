@@ -60,3 +60,6 @@ gem 'devise'
 
 # iex API
 gem 'iex-ruby-client'
+
+# fontawesome for icons
+gem "font-awesome-rails"
