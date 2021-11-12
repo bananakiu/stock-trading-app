@@ -15,7 +15,7 @@
         <td><%= user.id %></td>
         <td><%= user.email %></td>
         <td><%= user.balance %></td>
-        <td>Confirmed: <%= user.confirmed %></td>
+        <td>Confirmed: <%= user.confirmed? %></td>
         <td>Approved: <%= user.approved %></td>
         <% user.roles.each do |role| %>
           <td><%= role.name %></td>
