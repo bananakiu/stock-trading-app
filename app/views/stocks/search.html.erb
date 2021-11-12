@@ -3,5 +3,42 @@
 <%= form_with method: :post, url: stocks_search_path, local: true do |f| %>
   <%= f.text_field :ticker %>
   <%= f.submit "Search" %>
-
 <% end %>
+
+# <% @active = @client.stock_market_list(:mostactive) %>
+
+<h2><b>Most Active</b></h2>
+<div>
+  <% @active.each do | act | %> 
+    <p> <%= act.symbol %> </p>
+    <p> <%= number_to_currency(act.latest_price) %> </p>
+    <p> Stock: <%= act.company_name %> </p>
+    <p> % Change: <%= act.change_percent_s %> </p>
+    <p> Change: <%= act.change %> </p>
+    <p> High: <%= act.high %> </p>
+    <p> Low: <%= act.low %> </p>
+    <p> Previouse Day Close: <%= act.previous_close %> </p>
+  <% end %>
+</div>
+  
+<h2><b>Top Gainers</b></h2>
+<div>
+  <% @gainers.each do | gain | %>
+    <p> <%= gain.symbol %> </p>
+  <% end %>
+</div>
+
+<h2><b>Top Losers</b></h2>
+<div>
+  <% @losers.each do | lose | %>
+    <p> <%= lose.symbol %> </p>
+  <% end %>
+</div>
+
+# Stock info to show: 
+  # changePercent
+  # change 
+  # high
+  # low
+  # previousClose
+  # volume 

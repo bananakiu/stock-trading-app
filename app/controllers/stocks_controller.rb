@@ -2,24 +2,23 @@ class StocksController < ApplicationController
   before_action :get_api, only: [:create, :search, :show]
 
   def search
+    @active = @client.stock_market_list(:mostactive)
+    @gainers = @client.stock_market_list(:gainers)
+    @losers = @client.stock_market_list(:losers)
   end
 
   def create
-    # @quote = @client.quote(stock_params[:ticker])
     redirect_to stocks_show_path(stock_params)
-    
-    # begin
-    #   @quote = @client.quote(stock_params)
-    #   @stock = @client.company(stock_params).company_name
-    # rescue IEX::Errors::SymbolNotFoundError => error
-    #   flash[:alert] = error.message
-    #   redirect_to stocks_search_path
-    # end
   end
   
   def show 
-    @quote = @client.quote(stock_params)
-    @company = @client.company(stock_params)
+    begin
+      @quote = @client.quote(stock_params)
+      @company = @client.company(stock_params)
+    rescue IEX::Errors::SymbolNotFoundError => error
+      flash[:alert] = error.message
+      redirect_to stocks_search_path
+    end
   end
 
   private
