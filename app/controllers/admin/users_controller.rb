@@ -55,6 +55,7 @@ class Admin::UsersController < ApplicationController
   # PATCH/PUT route for approving users
   def approve
     if @user.update(user_params)
+      UserMailer.with(user: @user).approval_email.deliver_now
       flash[:notice] = "#{@user.email} was successfully approved."
       redirect_to admin_approvals_path
     else
