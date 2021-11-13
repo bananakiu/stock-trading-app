@@ -17,4 +17,9 @@ class User < ApplicationRecord
     # Add the default role if no roles is set
     self.roles << Role.find_by_name('member') if roles.empty?
   end
+
+  protected
+  def confirmation_required?
+    false
+  end
 end
