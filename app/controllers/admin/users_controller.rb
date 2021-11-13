@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ show edit update destroy approve ]
   before_action :allow_without_password, only: [:update]
   before_action :authorize_admin
 
@@ -49,6 +49,17 @@ class Admin::UsersController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # PATCH/PUT route for approving users
+  def approve
+    if @user.update(user_params)
+      flash[:notice] = "#{@user.email} was successfully approved."
+      redirect_to admin_approvals_path
+    else
+      flash[:alert] = "Something went wrong."
+      render admin_approvals_path
     end
   end
 

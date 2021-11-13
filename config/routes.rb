@@ -6,7 +6,12 @@ Rails.application.routes.draw do
   get 'portfolio' => 'welcome#portfolio'
 
   namespace :admin do
-    resources :users, except: :create
+    resources :users, except: :create do
+      member do
+        patch :approve
+        put :approve
+      end
+    end
     post 'create_user' => 'users#create', as: :create_user
     patch 'update_user/:id', to: 'users#update', as: :update_user
     delete 'delete_user/:id' => 'users#destory', as: :delete_user
