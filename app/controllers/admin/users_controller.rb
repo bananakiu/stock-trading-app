@@ -27,9 +27,7 @@ class Admin::UsersController < ApplicationController
     # TODO: don't send email notifications from admin interface
 
     respond_to do |format|
-      if @user.save
-        UserMailer.with(user: @user).welcome_email.deliver_now
-        
+      if @user.save        
         flash[:notice] = "User was successfully created."
         format.html { redirect_to admin_user_url(@user) }
         format.json { render :show, status: :created, location: @user }
