@@ -1,44 +1,91 @@
-<h1>Search Stock Ticker<h1>
-
-<%= form_with method: :post, url: stocks_search_path, local: true do |f| %>
+<h1 class="pb-2">Search Stock Ticker<h1>
+<%= form_with method: :post, url: stocks_search_path, class: "pb-10", local: true do |f| %>
   <%= f.text_field :ticker %>
   <%= f.submit "Search" %>
 <% end %>
 
-# <% @active = @client.stock_market_list(:mostactive) %>
+<% @active = @client.stock_market_list(:mostactive) %>
 
-<h2><b>Most Active</b></h2>
-<div>
-  <% @active.each do | act | %> 
-    <p> <%= act.symbol %> </p>
-    <p> <%= number_to_currency(act.latest_price) %> </p>
-    <p> Stock: <%= act.company_name %> </p>
-    <p> % Change: <%= act.change_percent_s %> </p>
-    <p> Change: <%= act.change %> </p>
-    <p> High: <%= act.high %> </p>
-    <p> Low: <%= act.low %> </p>
-    <p> Previouse Day Close: <%= act.previous_close %> </p>
-  <% end %>
-</div>
-  
-<h2><b>Top Gainers</b></h2>
-<div>
-  <% @gainers.each do | gain | %>
-    <p> <%= gain.symbol %> </p>
-  <% end %>
-</div>
+<div class="flex flex-row flex-wrap justify-around"> 
 
-<h2><b>Top Losers</b></h2>
-<div>
-  <% @losers.each do | lose | %>
-    <p> <%= lose.symbol %> </p>
-  <% end %>
-</div>
+  <div>
+    <h2 class="text-center text-xl mb-2"><b>Most Active</b></h2>
 
-# Stock info to show: 
-  # changePercent
-  # change 
-  # high
-  # low
-  # previousClose
-  # volume 
+    <table>
+      <thead>
+        <tr class="h-10 text-sm font-semi-bold uppercase text-gray-600 bg-gray-200 text-center">
+          <th>Stock</th>
+          <th>Volume</th>
+          <th>Last</th>
+          <th>% Change</th>
+          <th class="px-2">Change</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @active.each do | act | %> 
+          <tr>
+            <td class="text-center p-2"><%= act.symbol %></td>
+            <td class="text-center p-2"><%= number_with_delimiter(act.avg_total_volume, :delimeter => ',') %></td>
+            <td class="text-center p-2"><%= number_to_currency(act.latest_price) %></td>
+            <td class="text-center p-2"><%= act.change_percent_s %></td>
+            <td class="text-center p-2"><%= act.change %></td>
+          </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+  </div>
+    
+    
+  <div>
+    <h2 class="text-center text-xl mb-2"><b>Top Gainers</b></h2>
+    <table>
+      <thead>
+        <tr class="h-10 text-sm font-semi-bold uppercase text-gray-600 bg-gray-200 text-center">
+          <th>Stock</th>
+          <th>Last</th>
+          <th>Change</th>
+          <th class="px-2">% Change</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <% @gainers.each do | gain | %>
+          <tr>
+            <td class="text-center p-2"> <%= gain.symbol %> </td> 
+            <td class="text-center p-2"> <%= number_to_currency(gain.latest_price) %></td>
+            <td class="text-center p-2"> <%= gain.change %> </td>
+            <td class="text-center p-2"> <%= gain.change_percent_s %> </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <h2 class="text-center text-xl mb-2"><b>Top Losers</b></h2>
+    <table>
+      <thead>
+        <tr class="h-10 text-sm font-semi-bold uppercase text-gray-600 bg-gray-200 text-center">
+          <th>Stock</th>
+          <th>Last</th>
+          <th>Change</th>
+          <th class="px-2">% Change</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @losers.each do | lose | %>
+          <tr>
+            <td class="text-center p-2"> <%= lose.symbol %> </td>
+            <td class="text-center p-2"> <%= number_to_currency(lose.latest_price) %> </td>
+            <td class="text-center p-2"> <%= lose.change %> </td>
+            <td class="text-center p-2"> <%= lose.change_percent_s %> </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div> 
