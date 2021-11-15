@@ -1,0 +1,34 @@
+<h1>Unapproved Users</h1>
+
+<table class="table-auto">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Balance</th>
+            <th>Confirmed?</th>
+            <th>Approved?</th>
+            <th>Actions?</th>
+        </tr>
+    </thead>    
+
+    <tbody>
+        <% @unapproved_users.each do |user| %>
+            <tr>
+                <td><%= user.id %></td>
+                <td><%= user.email %></td>
+                <td><%= user.balance %></td>
+                <td><%= user.confirmed? %></td>
+                <td><%= user.approved %></td>
+                <td>
+                    <%=
+                        link_to 'Approve', 
+                        approve_admin_user_path(user, :user => {:approved => true}),
+                        :method => :put,
+                        data: { confirm: "Approve this user?" }
+                    %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

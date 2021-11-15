@@ -16,6 +16,10 @@ class WelcomeController < ApplicationController
     @toggle = "odd"
   end
 
+  def approvals
+    @unapproved_users = User.where(approved: false)
+  end
+
   private
     def authorize_admin
       return unless current_user.roles.find_by(name: "admin").nil?
