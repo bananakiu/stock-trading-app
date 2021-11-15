@@ -2,7 +2,7 @@ class TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[ show edit update destroy ]
   before_action :get_api, except: %i[ create update destroy ]
   before_action :restrict_admin
-
+  before_action :needs_approval
 
   # GET /transactions or /transactions.json
   def index

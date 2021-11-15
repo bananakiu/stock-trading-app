@@ -19,3 +19,5 @@ admin = User.create(
 
 admin.skip_confirmation! # no need to confirm admins
 admin.roles << Role.find_by_name("admin")
+admin.confirm
+admin.save
