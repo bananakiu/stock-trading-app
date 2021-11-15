@@ -1,7 +1,7 @@
 <h1 class="pb-2">Search Stock Ticker<h1>
 <%= form_with method: :post, url: stocks_search_path, class: "pb-10", local: true do |f| %>
-  <%= f.text_field :ticker %>
-  <%= f.submit "Search" %>
+  <%= f.text_field :ticker, class: "border border-solid border-gray-700 py-1" %>
+  <%= f.submit "Search", class: "bg-gray-700 hover:bg-gray-500 transition-all duration-200 cursor-pointer px-3 py-1 text-white rounded-sm" %>
 <% end %>
 
 <% @active = @client.stock_market_list(:mostactive) %>
