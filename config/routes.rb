@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       end
     end
     post 'create_user' => 'users#create', as: :create_user
-    patch 'update_user/:id', to: 'users#update', as: :update_user
+    patch 'update_user/:id' => 'users#update', as: :update_user
     delete 'delete_user/:id' => 'users#destory', as: :delete_user
   end
   get 'admin/all_transactions' => 'welcome#all_transactions'

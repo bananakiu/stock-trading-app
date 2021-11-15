@@ -13,6 +13,7 @@ class WelcomeController < ApplicationController
 
   def all_transactions
     @all_transactions = Transaction.all
+    @toggle = "odd"
   end
 
   def approvals

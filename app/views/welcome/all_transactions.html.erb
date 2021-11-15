@@ -1,28 +1,64 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Transactions</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @all_transactions.each do |transaction| %>
-      <tr>
-        <td><%= transaction.user_id %></td>
-        <td><%= transaction.action %></td>
-        <td><%= transaction.stock %></td>
-        <td><%= transaction.shares %></td>
-        <td><%= transaction.price_per_share %></td>
-        <td><%= link_to 'More details', transaction %></td>
+<div class="w-full h-full">
+  <h1 class="text-4xl mb-3">All Transactions</h1>
+  <table class="
+  w-full
+  ">
+    <thead>
+      <tr class="
+      h-10
+      text-sm font-semi-bold uppercase text-gray-600
+      bg-gray-200 text-left
+      ">
+        <th>
+          <span class="ml-5">User ID</span>
+        </th>
+        <th>Action</th>
+        <th>Total Price</th>
+        <th>Shares</th>
+        <th>Average Price</th>
+        <th>Current Price</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Transaction', new_transaction_path %>
+    </thead>
+    <tbody>
+      <% @all_transactions.each do |transaction| %>
+        <% mkt_price = @client.quote(transaction.stock).latest_price %>
+        <tr class="
+        <%= @toggle == "odd" ? "" : "bg-gray-200" %>
+        ">
+          <% @toggle = (@toggle == "odd" ? "even" : "odd") %>
+          <td class="px-5">
+            <%= link_to admin_user_path(transaction.user_id) do %>
+              <%= transaction.user_id %>
+            <% end %>
+          </td>
+          <td class="
+          flex items-center
+          h-16
+          ">
+            <%= image_tag @client.logo(transaction.stock).url, class: "h-4/5" %>
+            <div class="ml-3 flex flex-col">
+              <p class="font-semibold uppercase">
+                <%= transaction.action %> <%= transaction.stock %>
+              </p>
+              <p class="text-gray-600 text-sm">
+                <%= transaction.created_at.strftime("%d/%m/%Y %I:%M %p") %>
+              </p>
+            </div>
+          </td>
+          <td>
+            <%= number_to_currency(transaction.price_per_share * transaction.shares) %>
+          </td>
+          <td>
+            <%= transaction.shares %>
+          </td>
+          <td>
+            <%= number_to_currency(transaction.price_per_share) %>
+          </td>
+          <td>
+            <%= number_to_currency(mkt_price) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
