@@ -1,2 +1,12 @@
-<h1> <%= @company.company_name %> </h1>
-<p> <%= @quote.latest_price %> </p>
+<div class="flex justify-between mt-5 bg-yellow-500"> 
+  <div class="flex">  
+    <img src="<%= @logo.url %>" alt="Stock Logo" width="55" height="auto" class="rounded-sm">
+
+    <div class="ml-4">
+      <h1> <span class="text-xl font-bold"> <%= @company.symbol %> </span> | <%= @company.company_name %> </h1>
+      <p> <span class="text-xl font-bold mr-2"> <%= number_to_currency(@quote.latest_price) %> </span> <span class=""> <%= @quote.change %> </span> (<%= @quote.change_percent_s %>) </p>
+    </div>
+  </div>
+
+  <button class="py-2 px-6 text-white bg-gray-600 hover:bg-gray-700 rounded-lg cursor-pointer transition-all duration-200"> Trade </button>
+</div> 
