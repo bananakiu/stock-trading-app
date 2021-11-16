@@ -12,12 +12,12 @@ Rails.application.routes.draw do
   
   # transactions
   get 'transactions', to: 'transactions#index', as: "transactions"
-  get 'stocks/:ticker/transactions/new', to: 'transactions#new', as: "new_transaction"
+  get 'transactions/new', to: 'transactions#new', as: "new_transaction"
   post 'transactions', to: 'transactions#create'
   get 'transactions/:id', to: 'transactions#show', as: "transaction"
-  get 'stocks/:ticker/transactions/edit', to: 'transactions#edit', as: "edit_transaction"
-  patch 'stocks/:ticker/transactions/:id', to: 'transactions#update'
-  delete 'stocks/:ticker/transactions/:id', to: 'transactions#destroy'
+  get 'transactions/edit', to: 'transactions#edit', as: "edit_transaction"
+  patch 'transactions/:id', to: 'transactions#update'
+  delete 'transactions/:id', to: 'transactions#destroy'
 
   # admin pages
   namespace :admin do
