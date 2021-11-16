@@ -1,0 +1,7 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+msft:
+  user: one
+  stock: "MSFT"
+  shares: 5
+  total_cost: 500
