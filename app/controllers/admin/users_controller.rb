@@ -2,6 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy approve ]
   before_action :allow_without_password, only: [:update]
   before_action :authorize_admin
+  before_action :get_api, only: [:show]
 
   # GET /users or /users.json
   def index
@@ -10,6 +11,11 @@ class Admin::UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @transactions = Transaction.where(user_id: @user.id).order(created_at: :DESC)
+    @toggle = "odd"
+
+    @portfolio = @user.portfolios
+    @toggle2 = "odd"
   end
 
   # GET /users/new
@@ -97,5 +103,9 @@ class Admin::UsersController < ApplicationController
       return unless current_user.roles.find_by(name: "admin").nil?
       flash[:alert] = 'Only admins are authorized to access that page.'
       redirect_to "/"  # set to root path in the future
+    end
+
+    def get_api
+      @client = IEX::Api::Client.new # credentials setup in config/intializers/iex_client.rb
     end
 end
