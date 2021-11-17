@@ -105,7 +105,7 @@
           <% if user_signed_in? %>
             <li class="h-full flex items-center justify-center">
               <div class= "px-4 py-5 h-full">
-                Welcome, <%= current_user&.roles&.find_by(name: "admin").nil? ? current_user.email : "Admin" %>!
+                Welcome, <%= current_user&.roles&.find_by(name: "admin").nil? ? current_user.first_name : "Admin" %>!
               </div>
             </li>
             <li class="h-full flex items-center justify-center">

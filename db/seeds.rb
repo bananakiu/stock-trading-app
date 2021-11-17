@@ -12,6 +12,8 @@ roles = Role.create([
 
 # TODO: encrypt
 admin = User.create(
+    first_name: "admin",
+    last_name: "admin",
     email: "admin@admin.com",
     password: "password",
     approved: true # admin is automatically approved

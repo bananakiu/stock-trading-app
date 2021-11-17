@@ -4,34 +4,60 @@
   <%= render "devise/shared/error_messages", resource: user %>
 
   <div class="flex flex-col my-4">
-      <%= f.label :email, class: "
-      text-md text-gray-700 font-semibold mb-2
-      " %>
-      <%= f.email_field :email, placeholder: "johndoe@email.com", autofocus: true, autocomplete: "email", class: "
-      appearance-none
-      shadow border rounded-md
-      w-full py-2 px-3 leading-tight
-      text-gray-700
-      focus:shadow-outline
-      " %>
+    <%= f.label :first_name, class: "
+    text-md text-gray-700 font-semibold mb-2
+    " %>
+    <%= f.text_field :first_name, placeholder: "johndoe@email.com", required: true, autofocus: true, autocomplete: "email", class: "
+    appearance-none
+    shadow border rounded-md
+    w-full py-2 px-3 leading-tight
+    text-gray-700
+    focus:shadow-outline
+    " %>
   </div>
 
   <div class="flex flex-col my-4">
-      <%= f.label :password, class: "
-      text-md text-gray-700 font-semibold
-      " %>
-      <% if @minimum_password_length %>
-      <p class="italic text-sm text-gray-400 mb-2">
-          (<%= @minimum_password_length %> characters minimum)
-      </p>
-      <% end %>
-      <%= f.password_field :password, placeholder: "*********", autocomplete: "new-password", class: "
-      appearance-none
-      shadow border rounded-md
-      w-full py-2 px-3 leading-tight
-      text-gray-700
-      focus:shadow-outline
-      " %>
+    <%= f.label :last_name, class: "
+    text-md text-gray-700 font-semibold mb-2
+    " %>
+    <%= f.text_field :last_name, placeholder: "johndoe@email.com", required: true, autofocus: true, autocomplete: "email", class: "
+    appearance-none
+    shadow border rounded-md
+    w-full py-2 px-3 leading-tight
+    text-gray-700
+    focus:shadow-outline
+    " %>
+  </div>
+    
+  <div class="flex flex-col my-4">
+    <%= f.label :email, class: "
+    text-md text-gray-700 font-semibold mb-2
+    " %>
+    <%= f.email_field :email, placeholder: "johndoe@email.com", autofocus: true, autocomplete: "email", class: "
+    appearance-none
+    shadow border rounded-md
+    w-full py-2 px-3 leading-tight
+    text-gray-700
+    focus:shadow-outline
+    " %>
+  </div>
+
+  <div class="flex flex-col my-4">
+    <%= f.label :password, class: "
+    text-md text-gray-700 font-semibold
+    " %>
+    <% if @minimum_password_length %>
+    <p class="italic text-sm text-gray-400 mb-2">
+        (<%= @minimum_password_length %> characters minimum)
+    </p>
+    <% end %>
+    <%= f.password_field :password, placeholder: "*********", autocomplete: "new-password", class: "
+    appearance-none
+    shadow border rounded-md
+    w-full py-2 px-3 leading-tight
+    text-gray-700
+    focus:shadow-outline
+    " %>
   </div>
 
   <div class="flex flex-col my-4">
@@ -48,13 +74,13 @@
   </div>
 
   <div class="mt-8">
-      <%= f.submit button_text, class: "
-      w-full py-2 px-4
-      text-white font-bold
-      bg-gray-600 hover:bg-gray-700
-      rounded-lg
-      cursor-pointer
-      transition-all duration-200
-      "%>
+    <%= f.submit button_text, class: "
+    w-full py-2 px-4
+    text-white font-bold
+    bg-gray-600 hover:bg-gray-700
+    rounded-lg
+    cursor-pointer
+    transition-all duration-200
+    "%>
   </div>
 <% end %>
