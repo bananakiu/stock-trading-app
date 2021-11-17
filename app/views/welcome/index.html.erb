@@ -1,5 +1,5 @@
 <%# Home page if admin in %>
-<% if !current_user.roles.find_by(name: "admin").nil? %>
+<% if !current_user&.roles&.find_by(name: "admin").nil? %>
     <p>You're an admin!</p>
 <%# Home page if user %>
 <% else %>
@@ -15,16 +15,30 @@
         ">
             <div class="text-5xl mb-5 font-semibold">Buy & sell stocks in seconds</div>
             <div class="text-lg text-gray-300 mb-5">Join the world's best beginner stock exchange</div>
-            <%= link_to stocks_search_path, class: "
-            flex justify-center items-center
-            w-56 py-3 px-4
-            text-white font-bold
-            bg-green-600 hover:bg-green-700
-            rounded-lg
-            cursor-pointer
-            transition-all duration-200
-            " do %>
-                Trade Now
+            <% if user_signed_in? %>
+                <%= link_to stocks_search_path, class: "
+                flex justify-center items-center
+                w-56 py-3 px-4
+                text-white font-bold
+                bg-green-600 hover:bg-green-700
+                rounded-lg
+                cursor-pointer
+                transition-all duration-200
+                " do %>
+                    Trade Now
+                <% end %>
+            <% else %>
+                <%= link_to new_user_registration_path, class: "
+                flex justify-center items-center
+                w-56 py-3 px-4
+                text-white font-bold
+                bg-green-600 hover:bg-green-700
+                rounded-lg
+                cursor-pointer
+                transition-all duration-200
+                " do %>
+                    Sign Up
+                <% end %>
             <% end %>
         </div>
 
