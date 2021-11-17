@@ -2,13 +2,24 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
   
   devise_for :users, controllers: { registrations: 'users/registrations' }
-  resources :transactions
+
   get 'portfolio' => 'welcome#portfolio'
 
+  # stocks search
   get 'stocks/search'
-  post 'stocks/search' => 'stocks#create'
+  post 'stocks/search', to: 'stocks#create'
   get 'stocks/:ticker', to: 'stocks#show', as: 'stocks_show'
+  
+  # transactions
+  get 'transactions', to: 'transactions#index', as: "transactions"
+  get 'stocks/:ticker/transactions/new', to: 'transactions#new', as: "new_transaction"
+  post 'transactions', to: 'transactions#create'
+  get 'transactions/:id', to: 'transactions#show', as: "transaction"
+  get 'transactions/edit', to: 'transactions#edit', as: "edit_transaction"
+  patch 'transactions/:id', to: 'transactions#update'
+  delete 'transactions/:id', to: 'transactions#destroy'
 
+  # admin pages
   namespace :admin do
     resources :users, except: :create do
       member do

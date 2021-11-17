@@ -17,6 +17,14 @@ class TransactionsController < ApplicationController
   # GET /transactions/new
   def new
     @transaction = Transaction.new
+    @ticker = params[:ticker]
+
+    @stock_quote = @client.quote(@ticker)
+    @company = @client.company(@ticker)
+    @logo = @client.logo(@ticker)
+
+    @company_name = @company.company_name
+    
   end
 
   # GET /transactions/1/edit
