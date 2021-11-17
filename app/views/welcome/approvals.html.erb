@@ -1,34 +1,37 @@
-<h1>Unapproved Users</h1>
+<div> 
+  <h1 class="mb-3">Unapproved Users</h1>
 
-<table class="table-auto">
+  <table class="w-full">
     <thead>
-        <tr>
-            <th>ID</th>
-            <th>Email</th>
-            <th>Balance</th>
-            <th>Confirmed?</th>
-            <th>Approved?</th>
-            <th>Actions?</th>
-        </tr>
-    </thead>    
+      <tr class="h-10 mb-5 text-sm font-semi-bold uppercase text-gray-600 bg-gray-300 text-center">
+        <th>ID</th>
+        <th>Email</th>
+        <th>Balance</th>
+        <th>Confirm Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
 
     <tbody>
-        <% @unapproved_users.each do |user| %>
-            <tr>
-                <td><%= user.id %></td>
-                <td><%= user.email %></td>
-                <td><%= user.balance %></td>
-                <td><%= user.confirmed? %></td>
-                <td><%= user.approved %></td>
-                <td>
-                    <%=
-                        link_to 'Approve', 
-                        approve_admin_user_path(user, :user => {:approved => true}),
-                        :method => :put,
-                        data: { confirm: "Approve this user?" }
-                    %>
-                </td>
-            </tr>
-        <% end %>
+      <% @unapproved_users.each do |user| %>
+        <tr class="text-center h-16">
+          <td><%= user.id %></td>
+          <td><%= user.email %></td>
+          <%# <td><%= user.balance %> <%# </ td> %>
+          <td> $1000000 </td>
+          <td> 
+            <div class="w-full h-full flex justify-center items-center">
+              <div class="text-white rounded-3xl h-full w-20
+                <%= user.confirmed? ? "bg-green-600" : "bg-red-600" %> ">
+                <%= user.confirmed? %>
+              </div> 
+            </div>
+          </td>
+          <td>
+            <%= link_to 'Approve', approve_admin_user_path(user, :user => {:approved => true}),:method => :put, data: { confirm: "Approve this user?" } %>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
-</table>
+  </table>
+</div>
