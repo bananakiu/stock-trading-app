@@ -1,16 +1,7 @@
-<%# Home page if signed in %>
-<% if user_signed_in? %>
-    <% if !current_user.roles.find_by(name: "admin").nil? %>
-        <p>You're an admin!</p>
-    <% else %>
-        <p>You're not an admin!</p>
-        <%= link_to "View Your Portfolio", portfolio_path, class: "block" %>
-        <%= link_to "View Your Transactions", transactions_path, class: "block" %>
-        <%= link_to "Edit Profile", edit_user_registration_path, class: "block" %>
-    <% end %>
-<%# Home page if signed out %>
+<%# Home page if admin in %>
+<% if !current_user.roles.find_by(name: "admin").nil? %>
+    <p>You're an admin!</p>
+<%# Home page if user %>
 <% else %>
-    <p>You're not signed in</p>
-    <%= link_to "Sign In", new_user_session_path, class: "block" %>
-    <%= link_to "Sign Up", new_user_registration_path, class: "block" %>
+    <p>You're not an admin!</p>
 <% end %>

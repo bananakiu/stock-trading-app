@@ -160,7 +160,7 @@
     <main class="
     flex flex-col
     flex-grow
-    px-24
+    <%= request.path == "/" ? "" : "px-24" %>
     ">
       <%# notices %>
       <% if notice %>
