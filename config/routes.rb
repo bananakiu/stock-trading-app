@@ -4,9 +4,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
   get 'portfolio' => 'welcome#portfolio'
-  devise_scope :user do
-    get '/users/sign_out' => 'devise/sessions#destroy'
-  end
 
   # stocks search
   get 'stocks/search'
