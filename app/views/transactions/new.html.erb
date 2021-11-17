@@ -34,22 +34,15 @@
             
             <%# hidden fields %>
             <%= f.hidden_field :user_id, value: current_user.id %>
-            <%= f.text_field :stock, value: @ticker.upcase, hidden: true%>
-            <%= f.number_field :price_per_share, step: :any, value: @latest_price, hidden: true %>
+            <%= f.hidden_field :stock, value: @ticker.upcase%>
+            <%= f.hidden_field :price_per_share, value: @stock_quote.latest_price %>
 
             <%# ACTION %>
             <div class="flex flex-col my-4">
                 <%= f.label :action, "Action", class: "
                 text-md text-gray-700 font-semibold mb-2
                 " %>
-                <%# f.select :action, ["Buy", "Sell"], class: "
-                appearance-none
-                shadow border rounded-md
-                w-full py-2 px-3 leading-tight
-                text-gray-700
-                focus:shadow-outline
-                " %>
-                <select name="action" id="action" class="
+                <select name="transaction[action]" id="transaction_action" class="
                 appearance-none
                 shadow border rounded-md
                 w-full py-2 px-3 leading-tight
@@ -60,6 +53,13 @@
                     <option value="Buy">Buy</option>
                     <option value="Sell">Sell</option>
                 </select>
+                <%# f.select :action, ["Buy", "Sell"], class: "
+                appearance-none
+                shadow border rounded-md
+                w-full py-2 px-3 leading-tight
+                text-gray-700
+                focus:shadow-outline
+                " %>
             </div>
 
             <%# NUMBER OF SHARES %>
