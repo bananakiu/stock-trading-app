@@ -3,9 +3,10 @@
     <p>You're an admin!</p>
 <%# Home page if user %>
 <% else %>
+    <%# hero banner %>
     <div id="home-banner" class="
     flex flex-col justify-between items-center
-    w-full h-2/3 px-24 py-9
+    w-full h-96 px-24 py-9
     text-white
     ">  
         <%# call to action %>
@@ -56,5 +57,40 @@
                 </div>
             <% end %>
         </div>
+    </div>
+
+    <%# news articles %>
+    <div class="
+    flex flex-wrap justify-evenly
+    bg-white
+    w-full px-24 py-9
+    ">
+        <% @active5.each do |stock| %>
+            <% @client.news(stock.symbol, 2).each do |article| %>
+                <div class="
+                flex flex-col self-start
+                bg-white rounded-lg shadow-md
+                text-black
+                w-1/4 h-96 mx-6 mb-10
+                ">
+                    <%= link_to article.url do %>
+                        <%= image_tag article.image, class: "rounded-t-lg object-center w-full h-48 overflow-hidden object-cover" %>
+                    <% end %>
+                    <div class="px-8 pt-6 pb-6 text-justify">
+                        <div class="text-gray-600 text-sm mb-2">
+                            <%= article.datetime.strftime("%d/%m/%Y %I:%M %p") %>
+                        </div>
+                        <div class="font-bold mb-2">
+                            <%= link_to article.url do %>
+                                <%= article.headline %>
+                            <% end  %>
+                        </div>
+                        <div class="text-sm truncate">
+                            <%= article.summary %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        <% end %>
     </div>
 <% end %>
