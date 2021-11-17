@@ -27,20 +27,20 @@
   <%# :stock %>
   <div>
     <%= form.label :stock, "Stock" %>
-    <%= form.text_field :stock, placeholder: "Ticker" %>
+    <%= form.text_field :stock, placeholder: "Ticker", value: @ticker.upcase, readonly: true %>
   </div>
 
   <%# NUMBER OF SHARES %>
   <div>
     <%= form.label :shares, "Shares" %>
-    <%= form.number_field :shares, placeholder: "Number of shares" %>
+    <%= form.number_field :shares, placeholder: "Number of shares", required: true %>
   </div>
 
   <%# PRICE PER SHARE %>
   <%# to make read-only, readonly: true %>
   <div>
     <%= form.label :price_per_share, "Price per share" %>
-    <%= form.number_field :price_per_share, step: :any, placeholder: "Price per share" %>
+    <%= form.number_field :price_per_share, step: :any, placeholder: "Price per share", value: @client.quote(@ticker).latest_price, readonly: true, required: true %>
   </div>
 
   <div class="actions">

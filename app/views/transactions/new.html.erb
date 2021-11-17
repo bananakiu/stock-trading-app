@@ -1,5 +1,91 @@
-<h1>New Transaction</h1>
+<div class="w-full h-full flex flex-col justify-center items-center">
+    <div class="
+    flex flex-col
+    px-8 pt-6 pb-6
+    bg-white rounded-lg shadow-md
+    text-black
+    w-96 #md:w-1/2
+    ">
+        <%# header %>
+        <div class="flex flex-row h-16">
+            <%= image_tag @logo.url, class: "h-full rounded shadow" %>
+            <div class="flex flex-col ml-3 justify-between">
+                <p>
+                    <span class="font-bold">
+                        <%= @ticker.upcase %>
+                    </span> | 
+                    <span class="font-semibold text-gray-700">
+                        <%= @company_name %>
+                    </span>
+                </p>
+                <p>
+                    <span class="text-3xl">
+                        <%= @stock_quote.latest_price %>
+                    </span>
+                    <span class="text-sm <%= @stock_quote.change>=0 ? "text-green-500" : "text-red-500" %> ml-1">
+                        <%= @stock_quote.change %> | (<%= @stock_quote.change_percent_s %>)
+                    </span>
+                </p>
+            </div>
+        </div>
 
-<%= render 'form', transaction: @transaction %>
+        <%= form_with(model: @transaction) do |f| %>
+            <%= render "devise/shared/error_messages", resource: @transaction %>  <%# double check if this works%>
+            
+            <%# hidden fields %>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <%= f.hidden_field :stock, value: @ticker.upcase%>
+            <%= f.hidden_field :price_per_share, value: @stock_quote.latest_price %>
 
-<%= link_to 'Back', transactions_path %>
+            <%# ACTION %>
+            <div class="flex flex-col my-4">
+                <%= f.label :action, "Action", class: "
+                text-md text-gray-700 font-semibold mb-2
+                " %>
+                <select name="transaction[action]" id="transaction_action" class="
+                appearance-none
+                shadow border rounded-md
+                w-full py-2 px-3 leading-tight
+                text-gray-700
+                focus:shadow-outline
+                cursor-pointer
+                ">
+                    <option value="Buy">Buy</option>
+                    <option value="Sell">Sell</option>
+                </select>
+                <%# f.select :action, ["Buy", "Sell"], class: "
+                appearance-none
+                shadow border rounded-md
+                w-full py-2 px-3 leading-tight
+                text-gray-700
+                focus:shadow-outline
+                " %>
+            </div>
+
+            <%# NUMBER OF SHARES %>
+            <div class="flex flex-col my-4">
+                <%= f.label :shares, "Shares", class: "
+                text-md text-gray-700 font-semibold mb-2
+                " %>
+                <%= f.number_field :shares, placeholder: "Number of shares", required: true, class: "
+                appearance-none
+                shadow border rounded-md
+                w-full py-2 px-3 leading-tight
+                text-gray-700
+                focus:shadow-outline
+                " %>
+            </div>
+
+            <div class="mt-8">
+                <%= f.submit "Trade", class: "
+                w-full py-2 px-4
+                text-white font-bold
+                bg-gray-600 hover:bg-gray-700
+                rounded-lg
+                cursor-pointer
+                transition-all duration-200
+                "%>
+            </div>
+            <% end %>
+    </div>
+</div>
