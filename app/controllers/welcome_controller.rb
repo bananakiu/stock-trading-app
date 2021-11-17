@@ -1,9 +1,10 @@
 class WelcomeController < ApplicationController
   before_action :authorize_admin, only: %i[ all_transactions ]
   before_action :restrict_admin, only: %i[ portfolio ]
-  before_action :get_api, only: %i[ portfolio all_transactions ]
+  before_action :get_api, only: %i[ portfolio all_transactions index ]
 
   def index
+    @active5 = @client.stock_market_list(:mostactive)[0..4]
   end
 
   def portfolio
