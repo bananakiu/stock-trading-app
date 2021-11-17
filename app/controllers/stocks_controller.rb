@@ -15,6 +15,7 @@ class StocksController < ApplicationController
     begin
       @quote = @client.quote(stock_params)
       @company = @client.company(stock_params)
+      @logo = @client.logo(stock_params)
     rescue IEX::Errors::SymbolNotFoundError => error
       flash[:alert] = error.message
       redirect_to stocks_search_path
