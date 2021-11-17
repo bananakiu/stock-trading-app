@@ -1,10 +1,16 @@
 <div class="flex justify-between mt-5"> 
   <div class="flex">  
-    <img src="<%= @logo.url %>" alt="Stock Logo" width="55" height="auto" class="rounded-sm">
+    <img src="<%= @logo.url %>" alt="Stock Logo" width="62" height="auto" class="rounded-sm">
 
     <div class="ml-4">
-      <h1> <span class="text-xl font-bold"> <%= @company.symbol %> </span> | <%= @company.company_name %> </h1>
-      <p> <span class="text-xl font-bold mr-2"> <%= number_to_currency(@quote.latest_price) %> </span> <span class=""> <%= @quote.change %> </span> (<%= @quote.change_percent_s %>) </p>
+      <h1> 
+        <span class="text-2xl font-bold"> <%= @company.symbol %> </span> | 
+        <span class="text-sm"> <%= @company.company_name %> </span>
+      </h1>
+      <p> 
+        <span class="text-2xl mr-2"> <%= number_to_currency(@quote.latest_price) %> </span> 
+        <span class="text-sm <%= @quote.change >= 0 ? "text-green-500" : "text-red-500" %> "> <%= @quote.change %>  (<%= @quote.change_percent_s %>) </span>
+      </p>
     </div>
   </div>
 
