@@ -64,7 +64,7 @@ class TransactionsController < ApplicationController
     respond_to do |format|
       if @transaction.save
         flash[:notice] = "Transaction was successfully updated."
-        format.html { redirect_to @transaction }
+        format.html { redirect_to transactions_path }
         format.json { render :show, status: :created, location: @transaction }
       else
         format.html { render :new, status: :unprocessable_entity }
