@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
   get 'portfolio' => 'welcome#portfolio'
-
   # stocks search
   get 'stocks/search'
   post 'stocks/search', to: 'stocks#create'

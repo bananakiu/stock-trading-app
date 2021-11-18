@@ -19,6 +19,7 @@ class WelcomeController < ApplicationController
 
   def approvals
     @unapproved_users = User.where(approved: false)
+    @toggle = "odd"
   end
 
   private
