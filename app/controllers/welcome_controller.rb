@@ -4,7 +4,10 @@ class WelcomeController < ApplicationController
   before_action :get_api, only: %i[ portfolio all_transactions index ]
 
   def index
-    @active5 = @client.stock_market_list(:mostactive)[0..4]
+    # if not admin, call API
+    if current_user&.roles&.find_by(name: "admin").nil?
+      @active5 = @client.stock_market_list(:mostactive)[0..4]
+    end
   end
 
   def portfolio
