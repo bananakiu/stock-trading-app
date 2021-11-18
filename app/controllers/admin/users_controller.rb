@@ -7,6 +7,7 @@ class Admin::UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @users = User.all
+    @toggle = "odd"
   end
 
   # GET /users/1 or /users/1.json
