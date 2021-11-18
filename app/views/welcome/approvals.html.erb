@@ -1,34 +1,43 @@
 <div> 
-  <h1 class="mb-3">Unapproved Users</h1>
+  <h1 class="mb-3 text-2xl text-gray-700 font-bold">Unapproved Users</h1>
 
   <table class="w-full">
     <thead>
       <tr class="h-10 mb-5 text-sm font-semi-bold uppercase text-gray-600 bg-gray-300 text-center">
-        <th>ID</th>
+        <th class="px-3">ID</th>
         <th>Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
         <th>Balance</th>
         <th>Confirm Status</th>
-        <th>Action</th>
+        <th>Approve</th>
       </tr>
     </thead>
 
     <tbody>
       <% @unapproved_users.each do |user| %>
-        <tr class="text-center h-16">
+        <tr class="text-center h-16 <%= @toggle == "odd" ? "" : "bg-gray-200" %> ">
+          <% @toggle = (@toggle == "odd" ? "even" : "odd") %>
           <td><%= user.id %></td>
           <td><%= user.email %></td>
+          <td><%= user.first_name %></td>
+          <td><%= user.last_name %></td>
           <%# <td><%= user.balance %> <%# </ td> %>
           <td> $1000000 </td>
           <td> 
             <div class="w-full h-full flex justify-center items-center">
               <div class="text-white rounded-3xl h-full w-20
                 <%= user.confirmed? ? "bg-green-600" : "bg-red-600" %> ">
-                <%= user.confirmed? %>
+                <% if user.confirmed? %>
+                  <i class="fas fa-check"></i>
+                <% else %>
+                  <i class="fas fa-times"></i> 
+                <% end %>
               </div> 
             </div>
           </td>
           <td>
-            <%= link_to 'Approve', approve_admin_user_path(user, :user => {:approved => true}),:method => :put, data: { confirm: "Approve this user?" } %>
+            <%= link_to raw('<i class="far fa-check-circle text-blue-900 text-2xl"></i>'), approve_admin_user_path(user, :user => {:approved => true}), :method => :put, data: { confirm: "Approve this user?" } %>
           </td>
         </tr>
       <% end %>
