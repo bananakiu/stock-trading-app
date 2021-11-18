@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    before_action :authenticate_user! # temporary. find out how to allow users to see landing page
+    # before_action :authenticate_user! # temporary. find out how to allow users to see landing page
 
     def needs_approval
         if current_user.approved == true
