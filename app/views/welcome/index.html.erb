@@ -1,16 +1,89 @@
-<%# Home page if signed in %>
-<% if user_signed_in? %>
-    <% if !current_user.roles.find_by(name: "admin").nil? %>
-        <p>You're an admin!</p>
-    <% else %>
-        <p>You're not an admin!</p>
-        <%= link_to "View Your Portfolio", portfolio_path, class: "block" %>
-        <%= link_to "View Your Transactions", transactions_path, class: "block" %>
-        <%= link_to "Edit Profile", edit_user_registration_path, class: "block" %>
-    <% end %>
-<%# Home page if signed out %>
+<%# Home page if admin in %>
+<% if !current_user&.roles&.find_by(name: "admin").nil? %>
+    <p>You're an admin!</p>
+<%# Home page if user %>
 <% else %>
-    <p>You're not signed in</p>
-    <%= link_to "Sign In", new_user_session_path, class: "block" %>
-    <%= link_to "Sign Up", new_user_registration_path, class: "block" %>
+    <%# hero banner %>
+    <div id="home-banner" class="
+    flex flex-col justify-between items-center
+    w-full h-96 px-24 py-9
+    text-white
+    ">  
+        <%# call to action %>
+        <div class="
+        flex flex-col w-full mt-7
+        ">
+            <div class="text-5xl mb-5 font-semibold">Buy & sell stocks in seconds</div>
+            <div class="text-lg text-gray-300 mb-5">Join the world's best beginner stock exchange</div>
+            <% if user_signed_in? %>
+                <%= link_to stocks_search_path, class: "
+                flex justify-center items-center
+                w-56 py-3 px-4
+                text-white font-bold
+                bg-green-600 hover:bg-green-700
+                rounded-lg
+                cursor-pointer
+                transition-all duration-200
+                " do %>
+                    Trade Now
+                <% end %>
+            <% else %>
+                <%= link_to new_user_registration_path, class: "
+                flex justify-center items-center
+                w-56 py-3 px-4
+                text-white font-bold
+                bg-green-600 hover:bg-green-700
+                rounded-lg
+                cursor-pointer
+                transition-all duration-200
+                " do %>
+                    Sign Up
+                <% end %>
+            <% end %>
+        </div>
+
+        <%# stock tickers %>
+        <div class="
+        flex justify-between
+        w-full
+        ">
+            <% @active5.each do |stock| %>
+                <div class="w-2/12">
+                    <div>
+                        <%= stock.symbol %>
+                        <span class="<%= stock.change>=0 ? "text-green-500" : "text-red-500" %>">
+                            <%= stock.change_percent_s %>
+                        </span>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-semibold">
+                            <%= stock.latest_price %>
+                        </span>
+                        <span class="text-sm <%= stock.change>=0 ? "text-green-500" : "text-red-500" %>">
+                            <%= stock.change %>
+                        </span>
+                    </div>
+                    <div>
+                        <span class="text-sm text-gray-300">
+                            <%= number_to_currency(stock.latest_price) %>
+                        </span>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+
+    <%# news articles %>
+    <div class="
+    flex flex-wrap justify-evenly
+    bg-white
+    w-full px-24 py-9
+    ">
+        <% @active5.each do |stock| %>
+            <% @client.news(stock.symbol, 2).each do |article| %>
+                <%# news article %>
+                <%= render 'news_article', article: article %>
+            <% end %>
+        <% end %>
+    </div>
 <% end %>
