@@ -1,6 +1,73 @@
 <%# Home page if admin in %>
 <% if !current_user&.roles&.find_by(name: "admin").nil? %>
-    <p>You're an admin!</p>
+    <%# hero banner %>
+    <div id="home-banner-admin" class="
+    flex flex-col justify-between items-center
+    w-full h-full px-24 py-9
+    text-white
+    ">
+        <div class="
+        flex flex-col justify-center items-center
+        w-full h-full
+        ">
+
+            <%= link_to admin_users_path do %>
+                <div class="
+                flex justify-center items-center
+                w-96 py-3 px-4 mb-4
+                rounded-lg shadow
+                text-white font-bold
+                bg-blue-600 hover:bg-blue-700
+                cursor-pointer
+                transition-all duration-200
+                ">
+                    Manage Users
+                </div>
+            <% end %>
+
+            <%= link_to admin_approvals_path do %>
+                <div class="
+                flex justify-center items-center
+                w-96 py-3 px-4 mb-4
+                rounded-lg shadow
+                text-white font-bold
+                bg-blue-600 hover:bg-blue-700
+                cursor-pointer
+                transition-all duration-200
+                ">
+                    Approve Users
+                </div>
+            <% end %>
+
+            <%= link_to admin_all_transactions_path do %>
+                <div class="
+                flex justify-center items-center
+                w-96 py-3 px-4 mb-4
+                rounded-lg shadow
+                text-white font-bold
+                bg-blue-600 hover:bg-blue-700
+                cursor-pointer
+                transition-all duration-200
+                ">
+                    View All Transactions
+                </div>
+            <% end %>
+            <%= link_to new_admin_user_path do %>
+                <div class="
+                flex justify-center items-center
+                w-96 py-3 px-4
+                rounded-lg shadow
+                text-white font-bold
+                bg-blue-600 hover:bg-blue-700
+                cursor-pointer
+                transition-all duration-200
+                ">
+                    Create New User
+                </div>
+            <% end %>
+        </div>
+    </div>
+
 <%# Home page if user %>
 <% else %>
     <%# hero banner %>
