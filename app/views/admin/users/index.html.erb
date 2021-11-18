@@ -1,26 +1,68 @@
-<h1>Users</h1>
+<h1 class="mb-3 text-4xl text-gray-700">Users</h1>
 
-<table>
+<table class="w-full table-auto">
   <thead>
-    <tr>
-      <th colspan="3"></th>
+    <tr class="h-10 mb-5 text-sm font-semi-bold uppercase text-gray-600 bg-gray-300 text-center">
+      <th class="px-3">ID</th>
+      <th>Email</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Role</th>
+      <%# <th>Balance</th> %>
+      <th>Confirm Status</th>
+      <th>Approve Status</th>
+      <%# <th colspan="3">
+        <div class="mr-8">
+          Actions
+        </div> %>
+      <th class="-mr-3">Show</th>
+      <th>Edit</th>
+      <th>Remove</th>
+      </th>
     </tr>
   </thead>
 
   <tbody>
     <% @users.each do |user| %>
-      <tr>
+      <tr class="text-center h-16 <%= @toggle == "odd" ? "" : "bg-gray-200" %> ">
+        <% @toggle = (@toggle == "odd" ? "even" : "odd") %>
         <td><%= user.id %></td>
         <td><%= user.email %></td>
-        <td><%= user.balance %></td>
-        <td>Confirmed: <%= user.confirmed? %></td>
-        <td>Approved: <%= user.approved %></td>
-        <% user.roles.each do |role| %>
-          <td><%= role.name %></td>
-        <% end %>
-        <td><%= link_to 'Show', admin_user_path(user) %></td>
-        <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
-        <td><%= link_to 'Destroy', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td>
+          <% user.roles.each do |role| %> 
+            <%= role.name %>
+          <% end %>
+        </td>
+        <%# <td><%= user.balance </td> %>
+        <td> 
+          <div class="w-full h-full flex justify-center items-center">
+            <div class="text-white rounded-3xl h-full w-20
+              <%= user.confirmed? ? "bg-green-600" : "bg-red-600" %> ">
+              <% if user.confirmed? %>
+                <i class="fas fa-check"></i>
+              <% else %>
+                <i class="fas fa-times"></i> 
+              <% end %>
+            </div> 
+          </div>
+        </td>
+        <td> 
+          <div class="w-full h-full flex justify-center items-center">
+            <div class="text-white rounded-3xl h-full w-20
+            <%= user.approved ? "bg-green-600" : "bg-red-600" %> ">
+              <% if user.approved %>
+                <i class="fas fa-check"></i>
+              <% else %>
+                <i class="fas fa-times"></i> 
+              <% end %>
+            </div> 
+          </div>
+        </td>
+        <td><%= link_to raw('<i class="far fa-eye text-blue-900 text-2xl"></i>'), admin_user_path(user) %></td>
+        <td><%= link_to raw('<i class="far fa-edit text-yellow-500 text-2xl"></i>'), edit_admin_user_path(user), class:"-mr-2" %></td>
+        <td><%= link_to raw('<i class="fas fa-times text-red-600 text-2xl"></i>'), admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +70,4 @@
 
 <br>
 
-<%= link_to 'New User', new_admin_user_path %>
+<%= link_to 'New User', new_admin_user_path, class:"bg-gray-700 hover:bg-gray-500 transition-all duration-200 cursor-pointer px-3 py-1 text-white rounded-sm w-max" %>
