@@ -44,12 +44,13 @@ w-full h-full
         </thead>
         <tbody>
           <% @active.each do | act | %> 
-            <tr>
-              <td class="text-center p-2">
+            <tr class="<%= @toggle1 == "odd" ? "" : "bg-gray-200" %> h-16">
+              <% @toggle1 = (@toggle1 == "odd" ? "even" : "odd") %>
+              <td class="text-center p-2 font-semibold">
                 <%= act.symbol %>
               </td>
               <td class="text-center p-2">
-                <%= number_with_delimiter(act.avg_total_volume, :delimeter => ',') %>
+                <%= number_to_currency(act.avg_total_volume, :delimeter => ',') %>
               </td>
               <td class="text-center p-2 <%= act.change>=0 ? "text-green-500" : "text-red-500" %>">
                 <%= number_to_currency(act.latest_price) %>
@@ -80,8 +81,9 @@ w-full h-full
         </thead>
         <tbody>
           <% @gainers.each do | gain | %>
-            <tr>
-              <td class="text-center p-2">
+            <tr class="<%= @toggle2 == "odd" ? "" : "bg-gray-200" %> h-16">
+              <% @toggle2 = (@toggle2 == "odd" ? "even" : "odd") %>
+              <td class="text-center p-2 font-semibold">
                 <%= gain.symbol %>
               </td> 
               <td class="text-center p-2 <%= gain.change>=0 ? "text-green-500" : "text-red-500" %>">
@@ -113,8 +115,9 @@ w-full h-full
         </thead>
         <tbody>
           <% @losers.each do | lose | %>
-            <tr>
-              <td class="text-center p-2">
+            <tr class="<%= @toggle3 == "odd" ? "" : "bg-gray-200" %> h-16">
+              <% @toggle3 = (@toggle3 == "odd" ? "even" : "odd") %>
+              <td class="text-center p-2 font-semibold">
                 <%= lose.symbol %>
               </td>
               <td class="text-center p-2 <%= lose.change>=0 ? "text-green-500" : "text-red-500" %>">
