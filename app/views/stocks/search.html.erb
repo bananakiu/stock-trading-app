@@ -32,7 +32,7 @@ w-full h-full
     <%# most active %>
     <div class="w-full mb-6">
       <h2 class="text-3xl mb-3">Most Active</h2>
-      <table class="w-full">
+      <table class="w-full bg-white">
         <thead>
           <tr class="h-10 text-sm font-semi-bold uppercase text-gray-600 bg-gray-200 text-center">
             <th>Stock</th>
@@ -69,7 +69,7 @@ w-full h-full
     <%# top gainers %>
     <div class="w-full mb-6">
       <h2 class="text-3xl mb-3">Top Gainers</h2>
-      <table class="w-full">
+      <table class="w-full bg-white">
         <thead>
           <tr class="h-10 text-sm font-semi-bold uppercase text-gray-600 bg-gray-200 text-center">
             <th>Stock</th>
@@ -102,7 +102,7 @@ w-full h-full
     <%# top losers %>
     <div class="w-full mb-6">
       <h2 class="text-3xl mb-3">Top Losers</h2>
-      <table class="w-full">
+      <table class="w-full bg-white">
         <thead>
           <tr class="h-10 text-sm font-semi-bold uppercase text-gray-600 bg-gray-200 text-center">
             <th>Stock</th>
@@ -117,13 +117,13 @@ w-full h-full
               <td class="text-center p-2">
                 <%= lose.symbol %>
               </td>
-              <td class="text-center p-2 <%= gain.change>=0 ? "text-green-500" : "text-red-500" %>">
+              <td class="text-center p-2 <%= lose.change>=0 ? "text-green-500" : "text-red-500" %>">
                 <%= number_to_currency(lose.latest_price) %>
               </td>
-              <td class="text-center p-2 <%= gain.change>=0 ? "text-green-500" : "text-red-500" %>">
+              <td class="text-center p-2 <%= lose.change>=0 ? "text-green-500" : "text-red-500" %>">
                 <%= lose.change %>
               </td>
-              <td class="text-center p-2 <%= gain.change>=0 ? "text-green-500" : "text-red-500" %>">
+              <td class="text-center p-2 <%= lose.change>=0 ? "text-green-500" : "text-red-500" %>">
                 <%= lose.change_percent_s %>
               </td>
             </tr>
