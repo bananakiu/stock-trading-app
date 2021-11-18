@@ -2,9 +2,14 @@ class StocksController < ApplicationController
   before_action :get_api, only: [:create, :search, :show]
 
   def search
-    @active = @client.stock_market_list(:mostactive)#.sort_by{|stock| stock[:volume]}
-    @gainers = @client.stock_market_list(:gainers)#.sort_by{|stock| stock[:percent_change]}
-    @losers = @client.stock_market_list(:losers)#.sort_by{|stock| stock[:percent_change]}
+    begin
+      @active = @client.stock_market_list(:mostactive)#.sort_by{|stock| stock[:volume]}
+      @gainers = @client.stock_market_list(:gainers)#.sort_by{|stock| stock[:percent_change]}
+      @losers = @client.stock_market_list(:losers)#.sort_by{|stock| stock[:percent_change]}
+    rescue IEX::Errors::SymbolNotFoundError => error
+      flash[:alert] = error.message
+      redirect_to root_path
+    end
   end
 
   def create

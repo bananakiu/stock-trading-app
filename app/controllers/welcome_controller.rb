@@ -6,7 +6,12 @@ class WelcomeController < ApplicationController
   def index
     # if not admin, call API
     if current_user&.roles&.find_by(name: "admin").nil?
-      @active5 = @client.stock_market_list(:mostactive)[0..4]
+      begin
+        @active5 = @client.stock_market_list(:mostactive)[0..4]
+      rescue IEX::Errors::SymbolNotFoundError => error
+        flash[:alert] = error.message
+        redirect_to edit_user_registration_path
+      end
     end
   end
 

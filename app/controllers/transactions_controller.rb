@@ -19,9 +19,14 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new
     @ticker = params[:ticker]
 
-    @stock_quote = @client.quote(@ticker)
-    @company = @client.company(@ticker)
-    @logo = @client.logo(@ticker)
+    begin
+      @stock_quote = @client.quote(@ticker)
+      @company = @client.company(@ticker)
+      @logo = @client.logo(@ticker)
+    rescue IEX::Errors::SymbolNotFoundError => error
+      flash[:alert] = error.message
+      redirect_to stocks_search_path
+    end
 
     @company_name = @company.company_name
     
