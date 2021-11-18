@@ -6,18 +6,18 @@
         <thead>
             <tr class="
             h-10
-            text-sm font-semi-bold uppercase text-gray-600
+            text-sm font-semibold uppercase text-gray-600
             bg-gray-200 text-left
             ">
                 <th>
-                    <span class="ml-5">Stock</span>
+                    <span class="ml-8">Stock</span>
                 </th>
-                <th>Market Price</th>
-                <th>Average Price</th>
-                <th>Shares</th>
-                <th>Market Value</th>
-                <th>P/L</th>
-                <th>P/L %</th>
+                <th class="text-center p-2">Market Price</th>
+                <th class="text-center p-2">Average Price</th>
+                <th class="text-center p-2">Shares</th>
+                <th class="text-center p-2">Market Value</th>
+                <th class="text-center p-2">P/L</th>
+                <th class="text-center p-2">P/L %</th>
             </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@
                     <td class="
                     flex items-center
                     h-16
-                    px-5
+                    px-8
                     ">
                         <%= image_tag @client.logo(portfolio_stock.stock).url, class: "h-4/5" %>
                         <div class="ml-3">
@@ -46,16 +46,16 @@
                             </div>
                         </div>
                     </td>
-                    <td>
+                    <th class="text-center p-2">
                         <%= number_to_currency(mkt_price) %>
                     </td>
-                    <td>
+                    <th class="text-center p-2">
                         <%= number_to_currency(portfolio_stock.average_price) %>
                     </td>
-                    <td>
+                    <th class="text-center p-2">
                         <%= portfolio_stock.shares %>
                     </td>
-                    <td>
+                    <th class="text-center p-2">
                         <%= number_to_currency(portfolio_stock.market_price_total(mkt_price)) %>
                     </td>
                     <td class="<%= portfolio_stock.pnl(mkt_price)>0 ? "text-green-500" : "text-red-500" %>">
