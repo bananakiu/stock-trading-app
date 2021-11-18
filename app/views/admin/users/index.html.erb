@@ -1,14 +1,14 @@
 <h1 class="mb-3 text-4xl text-gray-700">Users</h1>
 
-<table class="w-full">
+<table class="w-full table-auto">
   <thead>
     <tr class="h-10 mb-5 text-sm font-semi-bold uppercase text-gray-600 bg-gray-300 text-center">
       <th class="px-3">ID</th>
       <th>Email</th>
       <th>First Name</th>
       <th>Last Name</th>
-      <th class="pr-5">Role</th>
-      <th>Balance</th>
+      <th>Role</th>
+      <%# <th>Balance</th> %>
       <th>Confirm Status</th>
       <th>Approve Status</th>
       <%# <th colspan="3">
@@ -30,9 +30,12 @@
         <td><%= user.email %></td>
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
+        <td>
+          <% user.roles.each do |role| %> 
+            <%= role.name %>
+          <% end %>
+        </td>
         <%# <td><%= user.balance </td> %>
-        <td class="pr-5"><%= user.roles.name %></td>
-        <td> $100,000 </td>
         <td> 
           <div class="w-full h-full flex justify-center items-center">
             <div class="text-white rounded-3xl h-full w-20
@@ -57,9 +60,6 @@
             </div> 
           </div>
         </td>
-        <%# <% user.roles.each do |role| %> 
-        <%#  <td><%= role.name </td> %>
-        <%# <% end %>
         <td><%= link_to raw('<i class="far fa-eye text-blue-900 text-2xl"></i>'), admin_user_path(user) %></td>
         <td><%= link_to raw('<i class="far fa-edit text-yellow-500 text-2xl"></i>'), edit_admin_user_path(user), class:"-mr-2" %></td>
         <td><%= link_to raw('<i class="fas fa-times text-red-600 text-2xl"></i>'), admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
