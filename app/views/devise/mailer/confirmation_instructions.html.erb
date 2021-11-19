@@ -1,5 +1,5 @@
-<p class="text-lg">Welcome <%= @first_name %> to our Instox app!</p>
+<p class="welcome">Hi <%= @user.first_name %>, welcome to our Instox app!</p>
 
-<p class="text-lg">Before we approve your account, you'll need confirm your account email through the link below:</p>
+<p>Before we approve your account, you'll need confirm your account email through the link below:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token), class:"bg-gray-700 hover:bg-gray-500 transition-all duration-200 cursor-pointer px-3 py-1 text-white rounded-sm w-max " %></p>
+<button><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token), class: "bg-gray-700 hover:bg-gray-500 transition-all duration-200 cursor-pointer px-3 py-1 text-white rounded-sm w-max" %></button>
