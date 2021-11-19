@@ -1,21 +1,21 @@
 <div class="w-full h-full">
   <h1 class="text-4xl mb-3">Transactions</h1>
   <table class="
-  w-full
+  w-full bg-white
   ">
     <thead>
       <tr class="
       h-10
-      text-sm font-semi-bold uppercase text-gray-600
+      text-sm font-semibold uppercase text-gray-600
       bg-gray-200 text-left
       ">
         <th>
-          <span class="ml-5">Action</span>
+          <span class="ml-8">Action</span>
         </th>
-        <th>Total Price</th>
-        <th>Shares</th>
-        <th>Average Price</th>
-        <th>Current Price</th>
+        <th class="text-center p-2">Total Price</th>
+        <th class="text-center p-2">Shares</th>
+        <th class="text-center p-2">Average Price</th>
+        <th class="text-center p-2">Current Price</th>
       </tr>
     </thead>
     <tbody>
@@ -28,7 +28,7 @@
           <td class="
           flex items-center
           h-16
-          px-5
+          px-8
           ">
             <%= image_tag @client.logo(transaction.stock).url, class: "h-4/5" %>
             <div class="ml-3 flex flex-col">
@@ -40,16 +40,16 @@
               </p>
             </div>
           </td>
-          <td>
+          <td class="text-center p-2">
             <%= number_to_currency(transaction.price_per_share * transaction.shares) %>
           </td>
-          <td>
+          <td class="text-center p-2">
             <%= transaction.shares %>
           </td>
-          <td>
+          <td class="text-center p-2">
             <%= number_to_currency(transaction.price_per_share) %>
           </td>
-          <td>
+          <td class="text-center p-2">
             <%= number_to_currency(mkt_price) %>
           </td>
         </tr>

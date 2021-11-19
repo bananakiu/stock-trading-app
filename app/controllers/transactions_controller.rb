@@ -19,9 +19,14 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new
     @ticker = params[:ticker]
 
-    @stock_quote = @client.quote(@ticker)
-    @company = @client.company(@ticker)
-    @logo = @client.logo(@ticker)
+    begin
+      @stock_quote = @client.quote(@ticker)
+      @company = @client.company(@ticker)
+      @logo = @client.logo(@ticker)
+    rescue IEX::Errors::SymbolNotFoundError => error
+      flash[:alert] = error.message
+      redirect_to stocks_search_path
+    end
 
     @company_name = @company.company_name
     
@@ -59,7 +64,7 @@ class TransactionsController < ApplicationController
     respond_to do |format|
       if @transaction.save
         flash[:notice] = "Transaction was successfully updated."
-        format.html { redirect_to @transaction }
+        format.html { redirect_to transactions_path }
         format.json { render :show, status: :created, location: @transaction }
       else
         format.html { render :new, status: :unprocessable_entity }

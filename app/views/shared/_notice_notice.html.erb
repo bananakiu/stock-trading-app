@@ -1,11 +1,11 @@
 <%= javascript_pack_tag 'notices' %>
 <div class="
 flex justify-center items-center self-center
-w-full px-8 py-4
+w-4/5 px-24 py-6
+<%= request.path == "/" ? "mt-9" : "" %>
 rounded-md shadow
 bg-green-200 text-green-800
-mb-6
-relative
+absolute z-50
 notice
 ">
     <%= notice %>

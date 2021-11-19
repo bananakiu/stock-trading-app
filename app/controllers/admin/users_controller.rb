@@ -89,7 +89,7 @@ class Admin::UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :approved)
+      params.require(:user).permit(:email, :password, :password_confirmation, :approved, :first_name, :last_name)
     end
 
     # remove the need for providing a password when an admin is updating a user

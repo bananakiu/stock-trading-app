@@ -11,7 +11,7 @@ w-1/4 h-96 mx-6 mb-10
         <div class="text-gray-600 text-sm mb-2">
             <%= article.datetime.strftime("%d/%m/%Y %I:%M %p") %>
         </div>
-        <div class="font-bold mb-2">
+        <div class="font-bold mb-2 truncate-2-lines"> <%# TODO: use tailwindcss-line-clamp plugin %>
             <%= link_to article.url do %>
                 <%= article.headline %>
             <% end  %>

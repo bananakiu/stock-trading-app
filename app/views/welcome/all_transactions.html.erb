@@ -1,22 +1,22 @@
 <div class="w-full h-full">
   <h1 class="text-4xl mb-3">All Transactions</h1>
   <table class="
-  w-full
+  w-full bg-white
   ">
     <thead>
       <tr class="
       h-10
-      text-sm font-semi-bold uppercase text-gray-600
+      text-sm font-semibold uppercase text-gray-600
       bg-gray-200 text-left
       ">
-        <th>
+        <th class="text-center p-2">
           <span class="ml-5">User ID</span>
         </th>
         <th>Action</th>
-        <th>Total Price</th>
-        <th>Shares</th>
-        <th>Average Price</th>
-        <th>Current Price</th>
+        <th class="text-center p-2">Total Price</th>
+        <th class="text-center p-2">Shares</th>
+        <th class="text-center p-2">Average Price</th>
+        <th class="text-center p-2">Current Price</th>
       </tr>
     </thead>
     <tbody>
@@ -26,7 +26,7 @@
         <%= @toggle == "odd" ? "" : "bg-gray-200" %>
         ">
           <% @toggle = (@toggle == "odd" ? "even" : "odd") %>
-          <td class="px-5">
+          <td class="px-5 text-center">
             <%= link_to admin_user_path(transaction.user_id) do %>
               <%= transaction.user_id %>
             <% end %>
@@ -45,16 +45,16 @@
               </p>
             </div>
           </td>
-          <td>
+          <th class="text-center p-2 font-normal">
             <%= number_to_currency(transaction.price_per_share * transaction.shares) %>
           </td>
-          <td>
+          <th class="text-center p-2 font-normal">
             <%= transaction.shares %>
           </td>
-          <td>
+          <th class="text-center p-2 font-normal">
             <%= number_to_currency(transaction.price_per_share) %>
           </td>
-          <td>
+          <th class="text-center p-2 font-normal">
             <%= number_to_currency(mkt_price) %>
           </td>
         </tr>

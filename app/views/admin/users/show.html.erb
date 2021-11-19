@@ -8,24 +8,23 @@
     <table class="
     w-full
     mb-8
-    <%# shadow-md %>
+    bg-white
     ">
         <thead>
             <tr class="
             h-10
-            text-sm font-semi-bold uppercase text-gray-600
+            text-sm font-semibold uppercase text-gray-600
             bg-gray-200 text-left
             ">
                 <th>
                     <span class="ml-5">Stock</span>
                 </th>
-                <th>Market Price</th>
-                <th>Average Price</th>
-                <th>Shares</th>
-                <th>Market Value</th>
-                <th>P/L</th>
-                <th>P/L %</th>
-                <th>Actions</th>
+                <th class="text-center p-2">Market Price</th>
+                <th class="text-center p-2">Average Price</th>
+                <th class="text-center p-2">Shares</th>
+                <th class="text-center p-2">Market Value</th>
+                <th class="text-center p-2">P/L</th>
+                <th class="text-center p-2">P/L %</th>
             </tr>
         </thead>
         <tbody>
@@ -54,28 +53,23 @@
                             </div>
                         </div>
                     </td>
-                    <td>
+                    <th class="text-center p-2 font-normal">
                         <%= number_to_currency(mkt_price) %>
                     </td>
-                    <td>
+                    <th class="text-center p-2 font-normal">
                         <%= number_to_currency(portfolio_stock.average_price) %>
                     </td>
-                    <td>
+                    <th class="text-center p-2 font-normal">
                         <%= portfolio_stock.shares %>
                     </td>
-                    <td>
+                    <th class="text-center p-2 font-normal">
                         <%= number_to_currency(portfolio_stock.market_price_total(mkt_price)) %>
                     </td>
-                    <td class="<%= portfolio_stock.pnl(mkt_price)>0 ? "text-green-500" : "text-red-500" %>">
+                    <td class="text-center p-2 <%= portfolio_stock.pnl(mkt_price)>0 ? "text-green-500" : "text-red-500" %>">
                         <%= number_to_currency(portfolio_stock.pnl(mkt_price)) %>
                     </td>
-                    <td class="<%= portfolio_stock.pnl(mkt_price)>0 ? "text-green-500" : "text-red-500" %>">
+                    <td class=" text-center p-2 <%= portfolio_stock.pnl(mkt_price)>0 ? "text-green-500" : "text-red-500" %>">
                         <%= number_to_percentage(portfolio_stock.pnl_perc(mkt_price) * 100, precision: 2) %>
-                    </td>
-                    <td>
-                        <%= link_to portfolio_stock do %>
-                            <i class="fas fa-eye text-gray-600 hover:text-gray-500"></i>
-                        <% end %>
                     </td>
                 </tr>
             <% end %>
@@ -85,21 +79,21 @@
     <%# transactions %>
     <h2 class="text-3xl mb-3">Transactions</h2>
     <table class="
-    w-full
+    w-full bg-white
     ">
         <thead>
             <tr class="
             h-10
-            text-sm font-semi-bold uppercase text-gray-600
+            text-sm font-semibold uppercase text-gray-600
             bg-gray-200 text-left
             ">
                 <th>
                     <span class="ml-5">Action</span>
                 </th>
-                <th>Total Price</th>
-                <th>Shares</th>
-                <th>Average Price</th>
-                <th>Current Price</th>
+                <th class="text-center p-2">Total Price</th>
+                <th class="text-center p-2">Shares</th>
+                <th class="text-center p-2">Average Price</th>
+                <th class="text-center p-2">Current Price</th>
             </tr>
         </thead>
         <tbody>
@@ -124,16 +118,16 @@
                         </p>
                         </div>
                     </td>
-                    <td>
+                    <th class="text-center p-2 font-normal">
                         <%= number_to_currency(transaction.price_per_share * transaction.shares) %>
                     </td>
-                    <td>
+                    <th class="text-center p-2 font-normal">
                         <%= transaction.shares %>
                     </td>
-                    <td>
+                    <th class="text-center p-2 font-normal">
                         <%= number_to_currency(transaction.price_per_share) %>
                     </td>
-                    <td>
+                    <th class="text-center p-2 font-normal">
                         <%= number_to_currency(mkt_price) %>
                     </td>
                 </tr>
