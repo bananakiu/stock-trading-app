@@ -46,7 +46,7 @@ class TransactionsController < ApplicationController
       shares: 0,
       total_cost: 0
     ) if current_user.portfolios.find_by(stock: transaction_params[:stock]).nil? # if stock is not yet in portfolio
-    
+
     # update portfolio values based on transaction made
     portfolio_entry = current_user.portfolios.find_by(stock: transaction_params[:stock])
     if transaction_params[:action] == "Buy"
@@ -56,9 +56,18 @@ class TransactionsController < ApplicationController
       portfolio_entry.save
     else
       # sell
-      portfolio_entry.total_cost *= (1-(transaction_params[:shares].to_d / portfolio_entry.shares)) # TODO: re-check logic
-      portfolio_entry.shares -= transaction_params[:shares].to_d
-      portfolio_entry.save
+      # check if you have enough to sell
+      if transaction_params[:shares].to_d <= current_user.portfolios.find_by(stock: transaction_params[:stock]).shares
+        # actually sell stock
+        portfolio_entry.total_cost *= (1-(transaction_params[:shares].to_d / portfolio_entry.shares)) # TODO: re-check logic
+        portfolio_entry.shares -= transaction_params[:shares].to_d
+        portfolio_entry.save
+      else
+        # raise not enough shares error
+        flash[:alert] = "You don't have enough shares to sell."
+        redirect_to new_transaction_path(ticker: transaction_params[:stock])
+        return
+      end
     end
 
     respond_to do |format|
