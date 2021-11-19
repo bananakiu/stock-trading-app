@@ -1,5 +1,26 @@
-<p class="text-lg">Welcome <%= @first_name %> to our Instox app!</p>
+<div style="margin: 0px 200px; font-family: Arial, Helvetica, sans-serif; font-size: 1.2rem;">
+  <p style="color: black;">Hi <span style="font-weight: bold;"><%= @user.first_name %></span>, welcome to our Instox app!</p>
 
-<p class="text-lg">Before we approve your account, you'll need confirm your account email through the link below:</p>
+  <p style="color: black;"> Before we approve your account in order for you to start trading, you'll need confirm your account email through the link below:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token), class:"bg-gray-700 hover:bg-gray-500 transition-all duration-200 cursor-pointer px-3 py-1 text-white rounded-sm w-max " %></p>
+  <p style="
+    background-color: #34495e;
+    width: fit-content;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin: 0 auto;
+    ">
+    <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token), 
+    style:"
+      text-decoration: none; 
+      color: white; 
+      padding: 3px 6px;"
+    %>
+  </p>
+
+  <p style="color: black;"> While waiting for our admins to approve your account, feel free to read up on some stock news on our <a href= <%= root_url %> style="color:#7f8c8d">Home</a> page or search for specific stocks on our <a href= <%= stocks_search_url %> style="color:#7f8c8d">Stocks</a> page. </p>
+
+  <p style="color: black;"> Thanks for choosing Instox, we’re thrilled to count you as the newest member of our global community! Happy Trading! </p>
+
+  <p style="color: black;"> Cheers, <br> Instox Team </p>
+</div>
