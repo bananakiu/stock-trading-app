@@ -1,6 +1,10 @@
 class Portfolio < ApplicationRecord
   belongs_to :user
 
+  validates :stock, presence: true
+  validates :shares, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :total_cost, presence: true, numericality: { greater_than_or_equal_to: 0 }
+
   def average_price
     self.total_cost / self.shares
   end
