@@ -20,11 +20,11 @@ RSpec.describe "Spec for Sign Up", type: :system do
         expect(page).to have_content "Welcome! You have signed up successfully."
     end
 
-    it "should log in existing user account" do     
+    it "should log in with existing user account" do     
         visit new_user_session_path
         fill_in 'user_email', :with => users(:one).email
         fill_in 'user_password', :with => "password"
-        click_button 'Log in'    
+        click_button 'Log in'
         expect(page).to have_content "Signed in successfully."
     end
 end
