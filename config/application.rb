@@ -19,5 +19,9 @@ module StockTradingApp
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_record.default_timezone = :local
+
+    # to prevent errors for deployment
+    # https://stackoverflow.com/questions/19650621/heroku-upload-precompiling-assets-failed
+    config.assets.initialize_on_precompile = false
   end
 end
