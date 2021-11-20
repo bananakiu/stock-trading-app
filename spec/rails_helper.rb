@@ -33,11 +33,12 @@ end
 RSpec.configure do |config|
   # Devise integration test helpers
   config.include Devise::Test::IntegrationHelpers, type: :system
+  # config.include Devise::TestHelpers, type: :system
   # config.include Warden::Test::Helpers
   
   # seed test db
   config.before(:suite) do
-    Rails.application.load_seed # loading seeds
+    require "#{Rails.root}/db/seeds.rb"
   end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
