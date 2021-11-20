@@ -11,15 +11,31 @@ RSpec.describe User, :type => :model do
     expect(user).to be_valid
   end
   it "is not valid without a first_name" do
-    user = User.new(first_name: nil)
+    user = User.new(
+      first_name: nil,
+      last_name: "Doe",
+      email: "johndoe@apple.com",
+      password: "password"
+    )
     expect(user).to_not be_valid
   end
   it "is not valid without a last_name" do
-    user = User.new(last_name: nil)
+    user = User.new(
+      first_name: "John",
+      last_name: nil,
+      email: "johndoe@apple.com",
+      password: "password"
+    )
     expect(user).to_not be_valid
   end
   it "is not valid with a balance less than 0" do
-    user = User.new(balance: -1)
+    user = User.new(
+      first_name: "John",
+      last_name: "Doe",
+      email: "johndoe@apple.com",
+      password: "password",
+      balance: -1
+    )
     expect(user).to_not be_valid
   end
 end
