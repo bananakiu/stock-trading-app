@@ -1,0 +1,7 @@
+heroku apps:rename <newname>
+
+heroku run rails db:migrate
+heroku run rake db:seed
+
+OR
+heroku run rake db:setup (if you have no data)
