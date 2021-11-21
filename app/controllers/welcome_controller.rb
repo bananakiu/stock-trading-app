@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  before_action :authorize_admin, only: %i[ all_transactions ]
+  before_action :authorize_admin, only: %i[ all_transactions approvals ]
   before_action :restrict_admin, only: %i[ portfolio ]
   before_action :get_api, only: %i[ portfolio all_transactions index ]
 
@@ -32,14 +32,22 @@ class WelcomeController < ApplicationController
 
   private
     def authorize_admin
-      return unless current_user.roles.find_by(name: "admin").nil?
-      flash[:alert] = 'Only admins are authorized to access that page.' 
-      redirect_to "/" # set to root path in the future
+      if user_signed_in?
+        return unless current_user.roles.find_by(name: "admin").nil?
+        flash[:alert] = 'Only admins are authorized to access that page.' 
+        redirect_to "/" # set to root path in the future
+      else
+        redirect_to "/", alert: 'You must be logged in to visit this page.'
+      end
     end
 
     def restrict_admin
-      return if current_user.roles.find_by(name: "admin").nil?
-      redirect_to "/", alert: 'Admins are not meant to trade.' # set to root path in the future
+      if user_signed_in?
+        return if current_user.roles.find_by(name: "admin").nil?
+        redirect_to "/", alert: 'Admins are not meant to trade.' # set to root path in the future
+      else
+        redirect_to "/", alert: 'You must be logged in to visit this page.'
+      end
     end
 
     def get_api

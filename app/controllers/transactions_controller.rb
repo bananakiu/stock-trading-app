@@ -122,7 +122,11 @@ class TransactionsController < ApplicationController
     end
 
     def restrict_admin
-      return if current_user.roles.find_by(name: "admin").nil?
-      redirect_to "/", alert: 'Admins are not meant to trade.' # set to root path in the future
+      if user_signed_in?
+        return if current_user.roles.find_by(name: "admin").nil?
+        redirect_to "/", alert: 'Admins are not meant to trade.' # set to root path in the future
+      else
+        redirect_to "/", alert: 'You must be logged in to visit this page.'
+      end
     end
 end

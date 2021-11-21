@@ -2,6 +2,13 @@ heroku apps:rename <newname>
 
 heroku run rails db:migrate
 heroku run rake db:seed
+OR heroku run rake db:setup (if you have no data)
 
-OR
-heroku run rake db:setup (if you have no data)
+to delete data
+heroku pg:reset DATABASE
+
+to connect to console
+heroku run console 
+
+group commands for reseting and seeding db
+heroku pg:reset DATABASE; heroku run rake db:migrate; heroku run rake db:seed
